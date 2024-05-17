@@ -4,14 +4,8 @@ import React from 'react'
 
 const Header = () => {
   return (
-    <AppBar 
-      position="static" 
-      sx={{ 
-        borderRadius: '0px 0px 16px 16px',
-        opacity: 0.9
-      }}
-    >
-      <Toolbar sx={{ justifyContent: 'space-between', py: 1.5, px: 18}}>
+    <AppBar position="static">
+      <Toolbar sx={{ justifyContent: 'space-between', py: 2, px: 18}}>
         <Box 
           width={'auto'}
           display={'flex'}
@@ -21,18 +15,18 @@ const Header = () => {
             width={'auto'}
             display={'flex'}
             alignItems={'center'}
-            sx={{ mr: 8}}
+            sx={{ mr: 4}}
           >
             <AdbIcon 
               sx={{ 
                 display: { xs: 'none', md: 'flex' },
                 mr: 0, 
                 mb: 0.5,
-                ml: 2,
-                fontSize: 34
+                ml: 1,
+                fontSize: 30
               }}
             />
-            <Typography variant="h6" component="div" sx={{ fontSize: 34 }}>
+            <Typography variant="h6" component="div" sx={{ fontSize: 30, mr: -1 }}>
               RoboLivery
             </Typography>
           </Box>
@@ -41,10 +35,10 @@ const Header = () => {
             variant='text'
             size='large'
             sx={[
-              { borderRadius: '24px', mr: 2, color: 'white'},
+              { borderRadius: '24px', color: 'lightgray'},
               (theme) => ({
                 '&:hover': {
-                  backgroundColor: 'GrayText'
+                  color: 'white'
                 },
               }),
             ]}
@@ -55,10 +49,10 @@ const Header = () => {
             variant='text'
             size='large'
             sx={[
-              { borderRadius: '24px', mr: 2, color: 'white'},
+              { borderRadius: '24px', color: 'lightgray'},
               (theme) => ({
                 '&:hover': {
-                  backgroundColor: 'GrayText'
+                  color: 'white'
                 },
               }),
             ]}
@@ -69,10 +63,10 @@ const Header = () => {
             variant='text'
             size='large'
             sx={[
-              { borderRadius: '24px', mr: 2, color: 'white'},
+              { borderRadius: '24px', color: 'lightgray'},
               (theme) => ({
                 '&:hover': {
-                  backgroundColor: 'GrayText'
+                  color: 'white'
                 },
               }),
             ]}
@@ -87,7 +81,7 @@ const Header = () => {
             { color: 'InfoText', borderRadius: '24px', backgroundColor: 'white', mr: 2},
             (theme) => ({
               '&:hover': {
-                backgroundColor: 'GrayText'
+                backgroundColor: 'lightgray'
               },
             }),
           ]}

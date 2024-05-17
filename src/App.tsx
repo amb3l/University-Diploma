@@ -16,8 +16,7 @@ function App() {
   return (
     <>
       <ThemeProvider theme={ theme }>
-        <Header />
-          <MainPage />
+        <MainPage />
       </ThemeProvider>
     </>
   )
