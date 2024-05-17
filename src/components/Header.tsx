@@ -4,7 +4,7 @@ import React from 'react'
 
 const Header = () => {
   return (
-    <AppBar position="static">
+    <AppBar position="fixed">
       <Toolbar sx={{ justifyContent: 'space-between', py: 2, px: 18}}>
         <Box 
           width={'auto'}

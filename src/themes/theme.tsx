@@ -18,7 +18,7 @@ export const theme = createTheme({
       styleOverrides: {
         root: {
           borderRadius: '0px 0px 16px 16px',
-          opacity: 1,
+          opacity: 0.95,
           background: 'linear-gradient(90deg, #100B02 40%, #2F2921 80%)'
         }
       }
