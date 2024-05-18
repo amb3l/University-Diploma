@@ -1,6 +1,6 @@
 import React, { MouseEventHandler, useCallback, useEffect, useRef, useState } from 'react'
 import Header from '../components/Header'
-import Map, { CircleLayer, Layer, MapLayerMouseEvent, Marker, Popup, Source } from "react-map-gl"
+import Map, { CircleLayer, Layer, MapLayerMouseEvent, Marker, NavigationControl, Popup, Source } from "react-map-gl"
 import LocationOnSharpIcon from '@mui/icons-material/LocationOnSharp'
 import { geojson } from '../data/drone-platforms'
 import { Typography } from '@mui/material'
@@ -71,6 +71,8 @@ export const MainPage = () => {
         }}
         style={{ width: viewport.width, height: viewport.height, position: 'fixed' }}
         mapStyle={ mapStyle }
+        logoPosition='top-left'
+        
         interactiveLayerIds={['drone_platforms']}
         onMouseEnter={mouseEnterHandler}
         onMouseLeave={mouseLeaveHandler}
@@ -78,6 +80,8 @@ export const MainPage = () => {
         onDragEnd={() => setCursor('auto')}
         cursor={cursor}
       >
+        <NavigationControl showCompass={false} position='bottom-right' />
+
         <Source id='platforms-data' type='geojson' data={geojson}>
           <Layer {...platformLayer} />
         </Source>
