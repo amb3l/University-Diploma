@@ -7,7 +7,7 @@ export const theme = createTheme({
       main: '#1c1814',
     },
     secondary: {
-      main: '#4db6ac',
+      main: '#dcbd00',
     },
     info: {
       main: '#02a2d1',
@@ -17,9 +17,9 @@ export const theme = createTheme({
     MuiAppBar: {
       styleOverrides: {
         root: {
-          borderRadius: '0px 0px 16px 16px',
-          opacity: 0.95,
-          background: 'linear-gradient(90deg, #100B02 40%, #2F2921 80%)'
+          borderRadius: '0px 0px 15px 15px',
+          opacity: 0.97,
+          background: 'linear-gradient(90deg, #29231A 57%, #534F47 90%)'
         }
       }
     },

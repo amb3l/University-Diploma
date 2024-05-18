@@ -1,0 +1,33 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "PLATFORM_ID": 1,
+        "NAME": "ICTIS Platform, I Corpus",
+        "DRONE_TYPE": "air",
+        "ADDRESS": "8720 Russell Road",
+        "MODIFIED_D": "2024/05/18"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [47.203948, 38.943917]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "PLATFORM_ID": 2,
+        "NAME": "ICTIS Platform, G Corpus",
+        "DRONE_TYPE": "air",
+        "ADDRESS": "8720 Russell Road",
+        "MODIFIED_D": "2024/05/18"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [47.203121, 38.934862]
+      }
+    }
+  ]
+}
