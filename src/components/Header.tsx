@@ -22,7 +22,7 @@ const Header = () => {
               sx={{ 
                 display: { xs: 'none', md: 'flex' }, 
                 mb: 0.5,
-                fontSize: 30
+                fontSize: 30,
               }}
             />
             <Typography variant='button' component="div" sx={{ fontSize: 28, mr: 0 }}>

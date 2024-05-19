@@ -2,8 +2,24 @@
 @tailwind components;
 @tailwind utilities;
 
+.root {
+  --colors-chrome-100: #E6ECF0;
+  --colors-chrome-150: #D1DAE0;
+  --colors-chrome-200: #BCC8D1;
+  --colors-chrome-300: #A0B0BD;
+  --colors-chrome-350: #8C9FAD;
+  --colors-chrome-400: #788E9E;
+  --colors-chrome-450: #6C808F;
+  --colors-chrome-500: #607280;
+  --colors-chrome-550: #505E69;
+  --colors-chrome-600: #404A52;
+  --colors-chrome-650: #383F45;
+  --colors-chrome-700: #303438;
+  --colors-chrome-800: #19191A;
+}
+
 .mapboxgl-popup-content {
-  border-radius: 10px;
+  border-radius: 12px;
   padding-top: 1rem;
   padding-bottom: 1rem;
   padding-left: 2rem;
@@ -16,12 +32,15 @@
 }
 
 .mapboxgl-ctrl-group{
-  margin-right: 2rem !important;
-  padding-top: 0.5rem;
-  padding-bottom: 0.5rem;
-  padding-left: 0.5rem;
-  padding-right: 0.5rem;
-  border-radius: 22px;
+  margin-right: 16px !important;
+  padding-top: 0.6rem;
+  padding-bottom: 0.6rem;
+  padding-left: 0.6rem;
+  padding-right: 0.6rem;
+  border-radius: 24px;
   background-color: white;
   box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1) !important;
 }
+
+
+
