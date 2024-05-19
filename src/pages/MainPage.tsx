@@ -1,13 +1,21 @@
-import React, { MouseEventHandler, useCallback, useEffect, useRef, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import Header from '../components/Header'
-import Map, { CircleLayer, Layer, MapLayerMouseEvent, Marker, NavigationControl, Popup, Source } from "react-map-gl"
+import Map, { CircleLayer, GeolocateControl, Layer, MapLayerMouseEvent, Marker, NavigationControl, Popup, Source } from "react-map-gl"
 import LocationOnSharpIcon from '@mui/icons-material/LocationOnSharp'
 import { geojson } from '../data/drone-platforms'
-import { Typography } from '@mui/material'
+import { Box, Typography } from '@mui/material'
 import { theme } from '../themes/theme'
 
 const mapToken = "pk.eyJ1IjoiYW1iM2wiLCJhIjoiY2x3YXdiZnIwMDJlcDJucG52d3ZyMmZ0eiJ9.8Xp2cuklBnBmHYI6kF-VJQ"
 const mapStyle = "mapbox://styles/amb3l/clwattste01sl01qube68affp"
+
+
+interface PlatformMarkerProps {
+  PLATFORM_ID: number
+  NAME: string
+  DRONE_TYPE: string
+  MODIFIED_D: string
+}
 
 
 export const MainPage = () => {
@@ -19,6 +27,7 @@ export const MainPage = () => {
     height: "100vh",
     zoom: 14
   })
+
   const platformLayer: CircleLayer = {
     id: 'drone_platforms',
     type: 'circle',
@@ -30,16 +39,23 @@ export const MainPage = () => {
       'circle-stroke-color': 'white'
     }
   }
+  const undefinedPlatformData: PlatformMarkerProps = { 
+    NAME:'', PLATFORM_ID: -1, DRONE_TYPE: 'unknown', MODIFIED_D: '' 
+  }
   const [selectedPlatformPoint, setSelectedPlatformPoint] = useState(Array<number>)
+  const [selectedPlatformData, setSelectedPlatformData] = useState<PlatformMarkerProps>(undefinedPlatformData)
+
 
   const mouseEnterHandler = useCallback((e: MapLayerMouseEvent) => {
     e.preventDefault()
     setCursor('pointer')
 
     let coordinates = [0, 0]
+    let markerProps: PlatformMarkerProps = undefinedPlatformData
 
     if (e.features && e.features[0].geometry.type === 'Point') {
-        coordinates = e.features[0].geometry.coordinates.slice()
+      coordinates = e.features[0].geometry.coordinates.slice()
+      markerProps = (e.features[0].properties as PlatformMarkerProps)
     }
     // Ensure that if the map is zoomed out such that multiple
     // copies of the feature are visible, the popup appears
@@ -49,11 +65,13 @@ export const MainPage = () => {
     // }
 
     setSelectedPlatformPoint(coordinates)
+    setSelectedPlatformData(markerProps)
   }, [])
 
   const mouseLeaveHandler = useCallback((e: MapLayerMouseEvent) => {
     e.preventDefault()
     setSelectedPlatformPoint([])
+    setSelectedPlatformData(undefinedPlatformData)
     setCursor('auto')
   }, [])
 
@@ -61,6 +79,28 @@ export const MainPage = () => {
   return (
     <>
       <Header />
+
+      <Box height={'100%'} width={'800px'} 
+        sx={{ 
+          backgroundColor: 'white', 
+          position: 'absolute', 
+          zIndex: 1000,
+          boxShadow: '0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1)',
+          insetBlock: 0,
+          bottom: 0,
+          insetInlineStart: '16px',
+          marginBlock: '16px',
+          marginBottom: '16px',
+          marginTop: '90px',
+          overflow: 'hidden',
+          paddingBottom: '16px',
+          paddingTop: '90px',
+          top: 0,
+          borderRadius: '24px'
+        }}
+      >
+
+      </Box>
 
       <Map
         mapboxAccessToken={ mapToken }
@@ -72,7 +112,12 @@ export const MainPage = () => {
         style={{ width: viewport.width, height: viewport.height, position: 'fixed' }}
         mapStyle={ mapStyle }
         logoPosition='top-left'
-        
+        padding={{
+          top: 70,
+          bottom: 0,
+          left: 800,
+          right: 0
+        }}
         interactiveLayerIds={['drone_platforms']}
         onMouseEnter={mouseEnterHandler}
         onMouseLeave={mouseLeaveHandler}
@@ -81,6 +126,7 @@ export const MainPage = () => {
         cursor={cursor}
       >
         <NavigationControl showCompass={false} position='bottom-right' />
+        <GeolocateControl position='bottom-right'/>
 
         <Source id='platforms-data' type='geojson' data={geojson}>
           <Layer {...platformLayer} />
@@ -93,10 +139,9 @@ export const MainPage = () => {
             closeButton={false}
             closeOnClick={false}
             anchor='bottom'
-            
             >
             
-            <Typography variant='caption'>Drone Platform</Typography>
+            <Typography variant='caption'>{selectedPlatformData.NAME}</Typography>
           </Popup>
           : null
         }
@@ -130,6 +175,7 @@ export const MainPage = () => {
           </Marker>
         ))} */}
       </Map>
+
     </>
   )
 }
