@@ -1,23 +1,31 @@
-import { Input, TextField } from '@mui/material'
+import { Autocomplete, Input, TextField } from '@mui/material'
 
 export const SearchField = () => {
   return (
-    <TextField
+    <Autocomplete
+      disablePortal
       id="receiver-city"
-      placeholder="Введите город или регион" 
-      type="search"
-      size='small'
-      InputProps={{ 
-        sx: { 
-          borderRadius: '16px',
-          backgroundColor: '#efefee',
-          py: '0.2rem',
-        } 
-      }}
-      sx={{
-        marginLeft: 'auto',
-        width: '500px',
-      }} 
+      options={[]}
+      disableClearable
+      
+      sx={{width: '500px', marginLeft: 'auto'}}
+            
+      renderInput={(params) => 
+      <TextField {...params} 
+        placeholder='Введите город или регион'
+        
+        sx={{
+          "& .MuiOutlinedInput-root": {
+            borderRadius: "16px",
+            backgroundColor: '#efefee',
+            py: '0.3rem'
+          },
+          "& .MuiAutocomplete-inputRoot": {
+          },
+          "& .MuiInputLabel-outlined": {
+          }
+        }}
+      />}
     />
   )
 }
