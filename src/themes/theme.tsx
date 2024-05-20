@@ -18,7 +18,8 @@ export const theme = createTheme({
       styleOverrides: {
         root: {
           borderRadius: '0px 0px 15px 15px',
-          opacity: 0.97,
+          opacity: 0.95,
+          boxShadow: 'none',
           background: 'linear-gradient(90deg, #29231A 57%, #534F47 90%)'
         }
       }
@@ -32,7 +33,6 @@ export const theme = createTheme({
           paddingRight: '40px'
         }
       }
-    }
+    },
   }
-  
 }) 

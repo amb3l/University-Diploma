@@ -37,8 +37,8 @@ export const ServicePanel = () => {
             (theme) => ({
               '&:hover': {
                 backgroundColor: '#e3e2e2'
-              },
-            }),
+              }
+            })
           ]}
         >
           <Box width={'100%'} 
@@ -55,10 +55,10 @@ export const ServicePanel = () => {
               3.45км.
             </Typography>
             <Box>
-              <Typography  marginBottom={'-0.5rem'} fontWeight={'500'}>
+              <Typography  marginBottom={'-0.5rem'} fontWeight={'500'} color={theme.palette.text.disabled} >
                 Заказать
               </Typography>
-              <Typography variant='caption'>
+              <Typography variant='caption' color={theme.palette.text.disabled}>
                 Заполните обязательные поля
               </Typography>
             </Box>

@@ -7,6 +7,7 @@ import { ServicePanel } from '../components/ServicePanel'
 export const MainPage = () => {
   return (
     <>
+
       <Header />      
 
       <ServicePanelWrapper>
@@ -14,6 +15,7 @@ export const MainPage = () => {
       </ServicePanelWrapper>
 
       <MainMapContainer />
+
     </>
   )
 }

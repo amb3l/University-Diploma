@@ -1,6 +1,6 @@
-import { ServiceSender } from '../components/ServiceSender'
-import { ServiceItemWrapper } from '../components/ServiceItemWrapper'
-import { Box } from '@mui/material'
+import { Box, Typography } from '@mui/material'
+import { SenderBlock } from './sender_block/SenderBlock'
+import { ReceiverBlock } from './receiver_block/ReceiverBlock'
 
 export const ServiceList = () => {
   return (
@@ -11,34 +11,10 @@ export const ServiceList = () => {
         gap: '0.5rem'
       }}
     >
-      <ServiceItemWrapper title='Откуда'>
-        <ServiceSender/>
-      </ServiceItemWrapper>
-      <ServiceItemWrapper title='Откуда'>
-        <ServiceSender/>
-      </ServiceItemWrapper>
-      <ServiceItemWrapper title='Откуда'>
-        <ServiceSender/>
-      </ServiceItemWrapper>
-      <ServiceItemWrapper title='Откуда'>
-        <ServiceSender/>
-      </ServiceItemWrapper>
-      <ServiceItemWrapper title='Откуда'>
-        <ServiceSender/>
-      </ServiceItemWrapper>
-      <ServiceItemWrapper title='Откуда'>
-        <ServiceSender/>
-      </ServiceItemWrapper>
-      <ServiceItemWrapper title='Откуда'>
-        <ServiceSender/>
-      </ServiceItemWrapper>
-      <ServiceItemWrapper title='Откуда'>
-        <ServiceSender/>
-      </ServiceItemWrapper>
-      <ServiceItemWrapper title='Откуда'>
-        <ServiceSender/>
-      </ServiceItemWrapper>
+
+      <SenderBlock />
+      <ReceiverBlock />
+      
     </Box>
-    
   )
 }

@@ -36,7 +36,7 @@ export const MainMapContainer = () => {
       'circle-color': theme.palette.warning.main,
       'circle-radius': 7,
       'circle-stroke-width': 3,
-      'circle-stroke-color': 'white'
+      'circle-stroke-color': theme.palette.common.white
     }
   }
   const undefinedPlatformData: PlatformMarkerProps = { 
@@ -61,9 +61,9 @@ export const MainMapContainer = () => {
     // Ensure that if the map is zoomed out such that multiple
     // copies of the feature are visible, the popup appears
     // over the copy being pointed to.
-    // while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
-    //   coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
-    // }
+    while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+      coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+    }
 
     setSelectedPlatformPoint(coordinates)
     setSelectedPlatformData(markerProps)
@@ -117,7 +117,7 @@ export const MainMapContainer = () => {
             anchor='bottom'
             >
             
-            <Typography variant='caption'>{selectedPlatformData.NAME}</Typography>
+            <Typography variant='body2'>{selectedPlatformData.NAME}</Typography>
           </Popup>
           : null
         }
