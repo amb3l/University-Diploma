@@ -11,7 +11,7 @@ export const ReceiverName = () => {
     >
       <Box sx={{ width: '500px', marginLeft: 'auto', display: 'flex', justifyContent: 'space-between', mt: '0.5rem' }}>
         <TextField
-          placeholder='Имя'
+          label='Имя'
           size='small'
           sx={{ 
             flexGrow: '1',
@@ -28,7 +28,7 @@ export const ReceiverName = () => {
           }}
         />
         <TextField
-          placeholder='Фамилия'
+          label='Фамилия'
           size='small'
           sx={{
             flexGrow: '1',
@@ -41,6 +41,7 @@ export const ReceiverName = () => {
             "& .MuiAutocomplete-inputRoot": {
             },
             "& .MuiInputLabel-outlined": {
+              ml: '0.5rem'
             }
           }}
         />

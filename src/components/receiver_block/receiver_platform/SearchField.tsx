@@ -3,7 +3,6 @@ import { Autocomplete, Input, TextField } from '@mui/material'
 export const SearchField = () => {
   return (
     <Autocomplete
-      disablePortal
       id="receiver-platform"
       options={[]}
       disableClearable

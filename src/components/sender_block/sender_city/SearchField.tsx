@@ -77,7 +77,6 @@ export const SearchField = () => {
   return (
     <Autocomplete
       autoComplete={false}
-      disablePortal
       id="sender-city"
       options={ prompts }
       disableClearable

@@ -20,7 +20,7 @@ export const ServiceItemWrapper = (
     <Box width={'100%'}
       sx={{
         backgroundColor: 'white',
-        filter: 'drop-shadow(0 25px 25px rgb(50 0 0 / 0.2))',
+        filter: 'drop-shadow(0 30px 25px rgb(50 0 0 / 0.15))',
         borderRadius: '1.5rem',
         padding: '1rem'
       }}

@@ -1,4 +1,5 @@
 import { createTheme } from '@mui/material/styles';
+import zIndex from '@mui/material/styles/zIndex';
 
 export const theme = createTheme({
   palette: {
@@ -44,7 +45,6 @@ export const theme = createTheme({
     MuiPaper: {
       styleOverrides: {
         root: {
-          zIndex: '1000',
           borderRadius: '1rem',
           boxShadow: '0 10px 15px -3px rgb(0 0 0 / 0.1), 0 -4px 6px -4px rgb(0 0 0 / 0.1)'
         }
@@ -54,10 +54,10 @@ export const theme = createTheme({
        styleOverrides: {
          root: {
             [`& .MuiOutlinedInput-notchedOutline`]: {
-             borderWidth: 0,
+             borderWidth: 0
             }
          }
        }
-     }
+    }
   }
 }) 

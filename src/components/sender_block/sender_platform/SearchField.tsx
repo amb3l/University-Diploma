@@ -28,7 +28,6 @@ const top100Films = [
 export const SearchField = () => {
   return (
     <Autocomplete
-      disablePortal
       id="sender-platform"
       options={top100Films}
       disableClearable

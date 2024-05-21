@@ -9,6 +9,7 @@ import Header from './components/Header';
 import { ThemeProvider } from '@mui/material';
 import { theme } from './themes/theme';
 import { MainPage } from './pages/MainPage';
+import { OrderState } from './components/context/OrderContext';
 
 
 
@@ -16,7 +17,9 @@ function App() {
   return (
     <>
       <ThemeProvider theme={ theme }>
-        <MainPage />
+        <OrderState>
+          <MainPage />
+        </OrderState>
       </ThemeProvider>
     </>
   )
