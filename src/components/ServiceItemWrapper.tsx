@@ -20,12 +20,12 @@ export const ServiceItemWrapper = (
     <Box width={'100%'}
       sx={{
         backgroundColor: 'white',
-        boxShadow: '0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1)',
-        borderRadius: '24px',
-        padding: '16px'
+        filter: 'drop-shadow(0 25px 25px rgb(50 0 0 / 0.2))',
+        borderRadius: '1.5rem',
+        padding: '1rem'
       }}
     >
-      <Box sx={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+      <Box sx={{ display: 'flex', flexDirection: 'column' }}>
         <Box sx={{ display: 'flex', alignItems: 'center' }}>
           <Box sx={{ display: 'flex', alignItems: 'center', width: '2.5rem'}}>
             { icon }

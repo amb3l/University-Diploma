@@ -3,19 +3,19 @@ import React from 'react'
 
 export const ServicePanelWrapper = ({ children }: { children: React.ReactNode }) => {
   return (
-    <Box  width={'800px'} 
+    <Box  width={'850px'} 
       sx={{
         position: 'absolute',
         zIndex: 1000,
         insetBlock: 0,
         bottom: 0,
-        insetInlineStart: '16px',
+        insetInlineStart: '0rem',
+        paddingLeft: '1rem',
         marginBlock: '16px',
-        marginBottom: '16px',
-        marginTop: '16px',
-        overflow: 'hidden',
-        paddingBottom: '16px',
-        paddingTop: '73px',
+        marginBottom: '0px',
+        marginTop: '0px',
+        paddingTop: '6rem',
+        paddingBottom: '1rem',
         top: 0,
       }}
     >

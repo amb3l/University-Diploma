@@ -9,7 +9,7 @@ export const ServiceList = () => {
       sx={{
         display: 'flex',
         flexDirection: 'column',
-        gap: '0.5rem'
+        gap: '0.5rem',
       }}
     >
 

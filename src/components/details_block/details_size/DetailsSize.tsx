@@ -22,7 +22,7 @@ export const DetailsSize = () => {
 
   
   return (
-    <Box sx={{ display: 'flex', alignItems: 'center' }}>
+    <Box sx={{ display: 'flex', alignItems: 'center', my: '0.5rem' }}>
       <Typography paddingLeft={'40px'} fontWeight={'500'} >Размер посылки</Typography>
 
       <ToggleButtonGroup
@@ -39,16 +39,16 @@ export const DetailsSize = () => {
           "& .MuiToggleButtonGroup-grouped": {
             borderRadius: '1rem',
             textTransform: 'none',
-            m: '0.2rem'
+            m: '0.2rem',
+            borderWidth: '0',
+            padding: '0.5rem'
           },
           "& .MuiToggleButtonGroup-grouped:hover": {
             boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)'
           },
-          "& .MuiToggleButtonGroup-grouped:not(:last-of-type)": {
-            borderWidth: '0',
-            border: 'none'
-          },
           "& .Mui-selected": {
+            animationDuration: '300ms',
+            animationName: 'select-button',
             backgroundColor: 'white !important',
             boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)',
             color: theme.palette.text.primary

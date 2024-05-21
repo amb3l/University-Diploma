@@ -6,7 +6,7 @@ import { theme } from '../themes/theme';
 const Header = () => {
   return (
     <AppBar position="fixed">
-      <Toolbar sx={{ justifyContent: 'space-between', py: 1.5 }}>
+      <Toolbar sx={{ justifyContent: 'space-between', py: '1rem' }}>
         <Box 
           width={'auto'}
           display={'flex'}

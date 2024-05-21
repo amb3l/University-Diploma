@@ -14,7 +14,7 @@ export const SenderPhone = () => {
   
 
   return (
-    <Box sx={{ display: 'flex', alignItems: 'center' }}>
+    <Box sx={{ display: 'flex', alignItems: 'center', mt: '0.5rem' }}>
       <Typography paddingLeft={'40px'} fontWeight={'500'} >Отправитель</Typography>
 
       <MuiPhoneNumber 

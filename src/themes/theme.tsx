@@ -19,8 +19,7 @@ export const theme = createTheme({
         root: {
           borderRadius: '0px 0px 15px 15px',
           opacity: 0.95,
-          boxShadow: 'none',
-          background: 'linear-gradient(90deg, #29231A 57%, #534F47 90%)'
+          background: 'linear-gradient(90deg, #312d28 60%, #534F47 90%)'
         }
       }
     },
@@ -34,5 +33,31 @@ export const theme = createTheme({
         }
       }
     },
+    MuiAutocomplete : {
+      styleOverrides: {
+        paper: {
+          borderRadius: '1rem',
+          boxShadow: '0 10px 15px -3px rgb(0 0 0 / 0.1), 0 -4px 6px -4px rgb(0 0 0 / 0.1)'
+        }
+      }
+    },
+    MuiPaper: {
+      styleOverrides: {
+        root: {
+          zIndex: '1000',
+          borderRadius: '1rem',
+          boxShadow: '0 10px 15px -3px rgb(0 0 0 / 0.1), 0 -4px 6px -4px rgb(0 0 0 / 0.1)'
+        }
+      }
+    },
+    MuiOutlinedInput: {
+       styleOverrides: {
+         root: {
+            [`& .MuiOutlinedInput-notchedOutline`]: {
+             borderWidth: 0,
+            }
+         }
+       }
+     }
   }
 }) 

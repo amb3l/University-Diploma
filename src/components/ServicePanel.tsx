@@ -12,9 +12,9 @@ export const ServicePanel = () => {
         overflowX: 'hidden',
         overflowY: 'scroll',
         position: 'relative',
-        boxShadow: '0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1)',
+        boxShadow: '25px 25px 40px -3px rgb(90 60 2 / 0.12), -25px 25px 40px -3px rgb(50 0 0 / 0.1)',
         '&::-webkit-scrollbar': { width: 'none', display: 'none' },
-        width: '100%'
+        width: '100%',
       }}
     >
       <ServiceList />
