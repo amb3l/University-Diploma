@@ -48,18 +48,15 @@ export const SearchField = () => {
     setInputValue(value)
   }
 
-  const fetchSuggestions = async () => {
-    setLoading(true)
-    await fetch(url, (options as RequestInit))
-            .then(response => response.text())
-            .then(result => handleResult(result))
-            .catch(error => console.log("error", error))
-    setLoading(false)
-  }
 
   useEffect(() => {
-    const delayDebounceFn = setTimeout(() => {
-      fetchSuggestions()
+    const delayDebounceFn = setTimeout(async () => {
+      setLoading(true)
+      await fetch(url, (options as RequestInit))
+              .then(response => response.text())
+              .then(result => handleResult(result))
+              .catch(error => console.log("error", error))
+      setLoading(false)
     }, 700)
     return () => clearTimeout(delayDebounceFn)
   }, [inputValue])

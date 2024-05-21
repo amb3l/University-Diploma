@@ -17,7 +17,7 @@ export const ServicePanel = () => {
         width: '100%'
       }}
     >
-      <ServiceList/>
+      <ServiceList />
     
       <Box 
         sx={{ 
