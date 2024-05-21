@@ -1,6 +1,7 @@
 import { Box, Typography } from '@mui/material'
 import { SenderBlock } from './sender_block/SenderBlock'
 import { ReceiverBlock } from './receiver_block/ReceiverBlock'
+import { DetailsBlock } from './details_block/DetailsBlock'
 
 export const ServiceList = () => {
   return (
@@ -14,7 +15,8 @@ export const ServiceList = () => {
 
       <SenderBlock />
       <ReceiverBlock />
-      
+      <DetailsBlock />
+
     </Box>
   )
 }
