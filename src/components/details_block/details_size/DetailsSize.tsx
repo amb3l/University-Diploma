@@ -1,16 +1,20 @@
 import { Box, Button, ButtonGroup, ToggleButton, ToggleButtonGroup, Typography } from '@mui/material'
 import MuiPhoneNumber from 'mui-phone-number'
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { theme } from '../../../themes/theme'
+import { OrderContext } from '../../context/OrderContext'
 
 export const DetailsSize = () => {
+  // Размер посылки
   const [alignment, setAlignment] = React.useState('Small');
+  const { setDetailsSize } = useContext(OrderContext)
 
   const handleChange = (
     event: React.MouseEvent<HTMLElement>,
     newAlignment: string,
   ) => {
     setAlignment(newAlignment)
+    setDetailsSize(newAlignment)
     console.log(alignment)
   }
 

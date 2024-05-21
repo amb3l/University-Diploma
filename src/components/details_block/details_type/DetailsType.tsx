@@ -1,11 +1,14 @@
 import { Box, InputLabel, MenuItem, Select, SelectChangeEvent, Typography } from '@mui/material'
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
+import { OrderContext } from '../../context/OrderContext'
 
 export const DetailsType = () => {
-  const [type, setType] = useState('');
+  const [type, setType] = useState('')
+  const { setDetailsType } = useContext(OrderContext)
 
   const handleChange = (event: SelectChangeEvent) => {
-    setType(event.target.value as string);
+    setType(event.target.value as string)
+    setDetailsType(event.target.value as string)
   }
 
   return (

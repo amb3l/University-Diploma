@@ -1,13 +1,16 @@
 import { Box, Typography } from '@mui/material'
 import MuiPhoneNumber from 'mui-phone-number'
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
+import { OrderContext } from '../../context/OrderContext'
 
 
 export const ReceiverPhone = () => {
   const [value, setValue] = useState('')
+  const { setReceiverPhone } = useContext(OrderContext)
 
   const handleOnChange = (s: string) => {
     setValue(s)
+    setReceiverPhone(s)
   }
 
   return (

@@ -1,7 +1,16 @@
 import { Box, TextField } from '@mui/material'
-import React from 'react'
+import React, { ChangeEvent, useContext, useState } from 'react'
+import { OrderContext } from '../../context/OrderContext'
 
 export const ReceiverName = () => {
+  const { setReceiverName } = useContext(OrderContext)
+  const [name, setName] = useState('')
+
+  const handleFirstNameChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setName(e.target.value)
+    setReceiverName(e.target.value)
+  }
+
   return (
     <Box sx={{ 
       display: 'flex', 
@@ -11,6 +20,9 @@ export const ReceiverName = () => {
     >
       <Box sx={{ width: '500px', marginLeft: 'auto', display: 'flex', justifyContent: 'space-between', mt: '0.5rem' }}>
         <TextField
+          onChange={handleFirstNameChange}
+          value={name}
+
           label='Имя'
           size='small'
           sx={{ 

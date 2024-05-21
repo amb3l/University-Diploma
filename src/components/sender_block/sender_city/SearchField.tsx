@@ -1,7 +1,8 @@
 import { Autocomplete, TextField } from '@mui/material'
-import React, { useEffect } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { useState } from 'react'
 import { DaDataAddress, DaDataSuggestion } from 'react-dadata'
+import { OrderContext } from '../../context/OrderContext'
 
 const url = "http://suggestions.dadata.ru/suggestions/api/4_1/rs/suggest/address"
 const token = "1eaec91f22f5aca7c67aa836755b704617bb1815"
@@ -26,6 +27,7 @@ export const SearchField = () => {
   const [loading, setLoading] = useState(false)
   const [prompts, setPrompts] = useState<SuggestionItem[]>([])
   const [inputValue, setInputValue] =  useState('')
+  const { setSenderCity} = useContext(OrderContext)
   
 
   const options = {
@@ -46,6 +48,7 @@ export const SearchField = () => {
   const handleOnChange = (e: React.SyntheticEvent, value: string) => {
     setLoading(false)
     setInputValue(value)
+    setSenderCity(value)
   }
 
   const fetchSuggestions = async () => {
@@ -69,7 +72,7 @@ export const SearchField = () => {
     const obj: Response = JSON.parse(result)
     
     // CONSOLE
-    console.log(obj)
+    // console.log(obj)
     setPrompts(extractValues(obj))
   }
 

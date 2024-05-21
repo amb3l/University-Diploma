@@ -1,4 +1,6 @@
 import { Autocomplete, Input, TextField } from '@mui/material'
+import { useContext, useState } from 'react'
+import { OrderContext } from '../../context/OrderContext'
 
 const top100Films = [
   { label: 'The Shawshank Redemption', year: 1994 },
@@ -26,11 +28,22 @@ const top100Films = [
 
 
 export const SearchField = () => {
+  const [inputValue, setInputValue] = useState('')
+  const { setSenderPlatform } = useContext(OrderContext)
+
+  const handleOnChange = (e: React.SyntheticEvent, value: string) => {
+    setInputValue(value)
+    setSenderPlatform(value)
+  }
+
   return (
     <Autocomplete
       id="sender-platform"
       options={top100Films}
       disableClearable
+
+      inputValue={ inputValue }
+      onInputChange={ handleOnChange }
       
       sx={{width: '500px', marginLeft: 'auto'}}
             

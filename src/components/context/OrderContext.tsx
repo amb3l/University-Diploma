@@ -1,66 +1,87 @@
-import React, { createContext, useState } from 'react'
+import React, { createContext, useState, useContext } from 'react';
 
-interface OrderContextProps {
-  senderCity: string
-  senderPlatform: string
-  senderPhone: string
-  senderName: string
+interface OrderContext {
+  senderCity: string;
+  senderPlatform: string;
+  senderPhone: string;
+  senderName: string;
+  setSenderCity: (value: string) => void;
+  setSenderPlatform: (value: string) => void;
+  setSenderPhone: (value: string) => void;
+  setSenderName: (value: string) => void;
 
-  receiverCity: string
-  receiverPlatform: string
-  receiverPhone: string
-  receiverName: string
+  receiverCity: string;
+  receiverPlatform: string;
+  receiverPhone: string;
+  receiverName: string;
+  setReceiverCity: (value: string) => void;
+  setReceiverPlatform: (value: string) => void;
+  setReceiverPhone: (value: string) => void;
+  setReceiverName: (value: string) => void;
 
-  detailsSize: string
-  detailsType: string
+  detailsSize: string;
+  detailsType: string;
+  setDetailsSize: (value: string) => void;
+  setDetailsType: (value: string) => void;
 }
 
-export const OrderContext = createContext<OrderContextProps>({
+const initialContext: OrderContext = {
   senderCity: '',
   senderPlatform: '',
   senderPhone: '',
   senderName: '',
+  setSenderCity: () => {},
+  setSenderPlatform: () => {},
+  setSenderPhone: () => {},
+  setSenderName: () => {},
 
   receiverCity: '',
   receiverPlatform: '',
   receiverPhone: '',
   receiverName: '',
+  setReceiverCity: () => {},
+  setReceiverPlatform: () => {},
+  setReceiverPhone: () => {},
+  setReceiverName: () => {},
 
   detailsSize: '',
-  detailsType: ''
-})
+  detailsType: '',
+  setDetailsSize: () => {},
+  setDetailsType: () => {},
+}
 
-export const OrderState = ({ children }: { children: React.ReactNode }) => {
+export const OrderContext = createContext<OrderContext>(initialContext)
+
+export const OrderState = ({ children }: {children: React.ReactNode}) => {
+  // Sender states
   const [senderCity, setSenderCity] = useState('')
   const [senderPlatform, setSenderPlatform] = useState('')
   const [senderPhone, setSenderPhone] = useState('')
   const [senderName, setSenderName] = useState('')
-
+  // Receiver states
   const [receiverCity, setReceiverCity] = useState('')
   const [receiverPlatform, setReceiverPlatform] = useState('')
   const [receiverPhone, setReceiverPhone] = useState('')
   const [receiverName, setReceiverName] = useState('')
-
+  // Details states
   const [detailsSize, setDetailsSize] = useState('')
   const [detailsType, setDetailsType] = useState('')
 
-  const contextValue = {
-    senderCity, setSenderCity,
-    senderPlatform, setSenderPlatform,
-    senderPhone, setSenderPhone,
-    senderName, setSenderName,
+  return (
+    <OrderContext.Provider value={{
+      senderCity, setSenderCity,
+      senderPlatform, setSenderPlatform,
+      senderPhone, setSenderPhone,
+      senderName, setSenderName,
 
-    receiverCity, setReceiverCity,
-    receiverPlatform, setReceiverPlatform,
-    receiverPhone, setReceiverPhone,
-    receiverName, setReceiverName,
+      receiverCity, setReceiverCity,
+      receiverPlatform, setReceiverPlatform,
+      receiverPhone, setReceiverPhone,
+      receiverName, setReceiverName,
 
-    detailsSize, setDetailsSize,
-    detailsType, setDetailsType
-  }
-
-  return(
-    <OrderContext.Provider value={contextValue}>
+      detailsSize, setDetailsSize,
+      detailsType, setDetailsType,
+    }}>
       {children}
     </OrderContext.Provider>
   )
