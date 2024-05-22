@@ -3,7 +3,12 @@ import React, { useCallback, useEffect, useState } from 'react'
 import { ServiceList } from './ServiceList'
 import { theme } from '../themes/theme'
 
-export const ServicePanel = () => {
+export const ServicePanel = ({ onSubmit }: { onSubmit: () => string }) => {
+
+  const submitHandler = (e: React.FormEvent) => {
+    onSubmit()
+  }
+
   return (
     <Box
       sx={{
@@ -17,59 +22,63 @@ export const ServicePanel = () => {
         width: '100%',
       }}
     >
-      <ServiceList />
-    
-      <Box 
-        sx={{ 
-          padding: '0.5rem',
-          boxShadow:'0 -4px 20px rgba(0,0,0,.12)',
-          position: 'sticky',
-          bottom: 0,
-          backgroundColor:'white',
-          borderRadius: '24px',
-          marginTop: '0.5rem'
-        }}
-      >
-        <Button 
-          fullWidth={true}
-          sx={[
-            { borderRadius: '16px', backgroundColor: '#efefee', textTransform: 'none' },
-            (theme) => ({
-              '&:hover': {
-                backgroundColor: '#e3e2e2'
-              }
-            })
-          ]}
+      <form onSubmit={submitHandler}>
+        <ServiceList />
+      
+        <Box 
+          sx={{ 
+            padding: '0.5rem',
+            boxShadow:'0 -4px 20px rgba(0,0,0,.12)',
+            position: 'sticky',
+            bottom: 0,
+            backgroundColor:'white',
+            borderRadius: '24px',
+            marginTop: '0.5rem'
+          }}
         >
-          <Box width={'100%'} 
-            sx={{ 
-              display: 'flex', 
-              justifyContent: 'space-between', 
-              alignItems: 'center',
-              px: '0.5rem',
-              py: '0.2rem'
-              }}
-            >
-            
-            <Typography color={theme.palette.text.disabled} width={'6rem'}>
-              3.45км.
-            </Typography>
-            <Box>
-              <Typography  marginBottom={'-0.5rem'} fontWeight={'500'} color={theme.palette.text.disabled} >
-                Заказать
+          <Button 
+            type='submit'
+            fullWidth={true}
+            sx={[
+              { borderRadius: '16px', backgroundColor: '#efefee', textTransform: 'none' },
+              (theme) => ({
+                '&:hover': {
+                  backgroundColor: '#e3e2e2'
+                }
+              })
+            ]}
+          >
+            <Box width={'100%'} 
+              sx={{ 
+                display: 'flex', 
+                justifyContent: 'space-between', 
+                alignItems: 'center',
+                px: '0.5rem',
+                py: '0.2rem'
+                }}
+              >
+              
+              <Typography color={theme.palette.text.disabled} width={'6rem'}>
+                3.45км.
               </Typography>
-              <Typography variant='caption' color={theme.palette.text.disabled}>
-                Заполните обязательные поля
+              
+              <Box>
+                <Typography  marginBottom={'-0.5rem'} fontWeight={'500'} color={theme.palette.text.disabled} >
+                  Заказать
+                </Typography>
+                <Typography variant='caption' color={theme.palette.text.disabled}>
+                  Заполните обязательные поля
+                </Typography>
+              </Box>
+              
+              <Typography color={theme.palette.text.disabled} width={'6rem'}>
+                ~300$
               </Typography>
-            </Box>
-            
-            <Typography color={theme.palette.text.disabled} width={'6rem'}>
-              ~300$
-            </Typography>
 
-          </Box>
-        </Button>
-      </Box>
+            </Box>
+          </Button>
+        </Box>
+      </form>
     </Box>
   )
 }
