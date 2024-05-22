@@ -19,6 +19,11 @@ interface PlatformMarkerProps {
 
 
 export const MainMapContainer = () => {
+  const undefinedPlatformData: PlatformMarkerProps = { 
+    NAME:'', PLATFORM_ID: -1, DRONE_TYPE: 'unknown', MODIFIED_D: '' 
+  }
+  const [selectedPlatformPoint, setSelectedPlatformPoint] = useState(Array<number>)
+  const [selectedPlatformData, setSelectedPlatformData] = useState<PlatformMarkerProps>(undefinedPlatformData)
   const [cursor, setCursor] = useState<string>('auto');
   const [viewport, setViewport] = useState({
     latitude: 47.2065,
@@ -39,12 +44,8 @@ export const MainMapContainer = () => {
       'circle-stroke-color': theme.palette.common.white
     }
   }
-  const undefinedPlatformData: PlatformMarkerProps = { 
-    NAME:'', PLATFORM_ID: -1, DRONE_TYPE: 'unknown', MODIFIED_D: '' 
-  }
-  const [selectedPlatformPoint, setSelectedPlatformPoint] = useState(Array<number>)
-  const [selectedPlatformData, setSelectedPlatformData] = useState<PlatformMarkerProps>(undefinedPlatformData)
-
+  
+  
   // Обработчик наведения мыши на точку на карте.
   // При наведении появляется pop-up окно с информацией.
   const mouseEnterHandler = useCallback((e: MapLayerMouseEvent) => {
@@ -87,7 +88,7 @@ export const MainMapContainer = () => {
         }}
         style={{ width: viewport.width, height: viewport.height, position: 'fixed' }}
         mapStyle={ mapStyle }
-        logoPosition='top-left'
+        logoPosition='bottom-right'
         padding={{
           top: 70,
           bottom: 0,
@@ -107,6 +108,7 @@ export const MainMapContainer = () => {
         <Source id='platforms-data' type='geojson' data={geojson}>
           <Layer {...platformLayer} />
         </Source>
+
 
         { selectedPlatformPoint.length ?
           <Popup 
@@ -154,3 +156,11 @@ export const MainMapContainer = () => {
     </>
   )
 }
+function useRef(arg0: null) {
+  throw new Error("Function not implemented.")
+}
+
+function MapboxGeocoding(arg0: { accessToken: any }) {
+  throw new Error("Function not implemented.")
+}
+

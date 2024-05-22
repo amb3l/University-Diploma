@@ -62,6 +62,7 @@ export const DetailsSize = () => {
         <ToggleButton 
           value={'Small'}
           key={'Small'}
+          disableRipple
         >
           <Box>
             <Typography  marginBottom={'-0.5rem'} fontWeight={'600'} color='inherit'>
@@ -76,6 +77,7 @@ export const DetailsSize = () => {
         <ToggleButton 
           value={'Medium'}
           key={'Medium'}
+          disableRipple
         >
           <Box>
               <Typography  marginBottom={'-0.5rem'} fontWeight={'600'} color='inherit'>
@@ -90,6 +92,7 @@ export const DetailsSize = () => {
         <ToggleButton 
           value={'Large'}
           key={'Large'}
+          disableRipple
         >
           <Box>
               <Typography  marginBottom={'-0.5rem'} fontWeight={'600'} color='inherit'>
