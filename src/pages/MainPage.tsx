@@ -1,7 +1,6 @@
 import Header from '../components/Header'
-import { MainMapContainer } from '../components/MainMapContainer'
+import { MainMapContainer } from '../components/MainMapContainer(legacy)'
 import { ServicePanelWrapper } from '../components/ServicePanelWrapper'
-import { ServiceList } from '../components/ServiceList'
 import { ServicePanel } from '../components/ServicePanel'
 
 export const MainPage = () => {

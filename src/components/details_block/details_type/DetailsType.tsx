@@ -1,6 +1,6 @@
 import { Box, InputLabel, MenuItem, Select, SelectChangeEvent, Typography } from '@mui/material'
 import React, { useContext, useState } from 'react'
-import { OrderContext } from '../../context/OrderContext'
+import { OrderContext } from '../../../context/OrderContext'
 
 export const DetailsType = () => {
   const [type, setType] = useState('')

@@ -29,6 +29,16 @@
   100% { opacity: 1; height: auto; }
 }
 
+.footer {
+  height: 1rem;
+  border-radius: 1rem 1rem 0 0;
+  background-color: #312d28;
+  position: absolute;
+  bottom: 0;
+  opacity: 0.95;
+  z-index: 1100;
+}
+
 
 .mapboxgl-ctrl-group{
   margin-right: 16px !important;
@@ -41,5 +51,10 @@
   box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1) !important;
 }
 
-
-
+.auth-bg {
+  z-index: 1;
+  width: 100vw;
+  height: 100vh;
+  background-size: cover;
+  background-image: url('./data/auth-background.jpg');
+}

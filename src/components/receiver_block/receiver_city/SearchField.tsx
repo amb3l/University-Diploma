@@ -2,7 +2,7 @@ import { Autocomplete, TextField } from '@mui/material'
 import React, { useContext, useEffect } from 'react'
 import { useState } from 'react'
 import { DaDataAddress, DaDataSuggestion } from 'react-dadata'
-import { OrderContext } from '../../context/OrderContext'
+import { OrderContext } from '../../../context/OrderContext'
 
 const url = "http://suggestions.dadata.ru/suggestions/api/4_1/rs/suggest/address"
 const token = "1eaec91f22f5aca7c67aa836755b704617bb1815"

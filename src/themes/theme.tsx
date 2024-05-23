@@ -24,16 +24,6 @@ export const theme = createTheme({
         }
       }
     },
-    MuiToolbar: {
-      styleOverrides: {
-        root: {
-          paddingTop: '12px',
-          paddingBottom: '12px',
-          paddingLeft: '40px',
-          paddingRight: '40px'
-        }
-      }
-    },
     MuiAutocomplete : {
       styleOverrides: {
         paper: {

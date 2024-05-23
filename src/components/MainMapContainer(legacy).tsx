@@ -1,12 +1,9 @@
-import Map, { CircleLayer, GeolocateControl, Layer, MapLayerMouseEvent, Marker, NavigationControl, Popup, Source, useControl } from "react-map-gl"
+import Map, { CircleLayer, GeolocateControl, Layer, MapLayerMouseEvent, Marker, NavigationControl, Popup, Source } from "react-map-gl"
 import React, { useCallback, useEffect, useState } from 'react'
 import { theme } from '../themes/theme'
 import LocationOnSharpIcon from '@mui/icons-material/LocationOnSharp'
 import { Typography } from "@mui/material"
 import { geojson } from '../data/drone-platforms'
-import {LineLayer} from '@deck.gl/layers'
-import {MapboxOverlay, MapboxOverlayProps} from '@deck.gl/mapbox'
-import { ArcLayer, GeoJsonLayer, IconLayer } from "deck.gl"
 
 
 const mapToken = "pk.eyJ1IjoiYW1iM2wiLCJhIjoiY2x3YXdiZnIwMDJlcDJucG52d3ZyMmZ0eiJ9.8Xp2cuklBnBmHYI6kF-VJQ"
@@ -21,13 +18,6 @@ interface PlatformMarkerProps {
 }
 
 
-// function DeckGLOverlay(props: MapboxOverlayProps) {
-//   const overlay = useControl<MapboxOverlay>(() => new MapboxOverlay(props));
-//   overlay.setProps(props);
-//   return null;
-// }
-
-
 export const MainMapContainer = () => {
   const undefinedPlatformData: PlatformMarkerProps = { 
     NAME:'', PLATFORM_ID: -1, DRONE_TYPE: 'unknown', MODIFIED_D: '' 
@@ -36,11 +26,11 @@ export const MainMapContainer = () => {
   const [selectedPlatformData, setSelectedPlatformData] = useState<PlatformMarkerProps>(undefinedPlatformData)
   const [cursor, setCursor] = useState<string>('auto');
   const [viewport, setViewport] = useState({
-    latitude: 47.2065,
-    longitude: 38.928915,
+    latitude: 47.204627,
+    longitude: 38.939039,
     width: "100vw",
     height: "100vh",
-    zoom: 14
+    zoom: 15
   })
 
   const platformLayer: CircleLayer = {
@@ -87,9 +77,9 @@ export const MainMapContainer = () => {
     setCursor('auto')
   }, [])
 
-
   return (
-    <Map
+    <>
+      <Map
         mapboxAccessToken={ mapToken }
         initialViewState={{
           longitude: viewport.longitude,
@@ -98,7 +88,7 @@ export const MainMapContainer = () => {
         }}
         style={{ width: viewport.width, height: viewport.height, position: 'fixed' }}
         mapStyle={ mapStyle }
-        logoPosition='top-left'
+        logoPosition='bottom-right'
         padding={{
           top: 70,
           bottom: 0,
@@ -112,10 +102,9 @@ export const MainMapContainer = () => {
         onDragEnd={() => setCursor('auto')}
         cursor={cursor}
       >
-
         <NavigationControl showCompass={false} position='bottom-right' />
         <GeolocateControl position='bottom-right'/>
-        
+
         <Source id='platforms-data' type='geojson' data={geojson}>
           <Layer {...platformLayer} />
         </Source>
@@ -135,7 +124,43 @@ export const MainMapContainer = () => {
           : null
         }
 
-        
-    </Map>
+        {/* { dronePlatforms.features.map(platform => (
+          <Marker
+            key={ platform.properties.PLATFORM_ID }
+            latitude={ platform.geometry.coordinates[0] }
+            longitude={ platform.geometry.coordinates[1] }
+            anchor='bottom'
+          >
+            <button
+            onMouseOver={(e) => {
+              e.preventDefault()
+              setSelectedMarker(platform.geometry.coordinates)
+              console.log('enter')
+            }}
+            onMouseOut={(e) => {
+              e.preventDefault()
+              setSelectedMarker([])
+              console.log('leave')
+            }}
+            >
+              <LocationOnSharpIcon
+                fontSize='large'
+                sx={{ 
+                  color: theme.palette.error.light 
+                }}
+              />
+            </button>
+          </Marker>
+        ))} */}
+      </Map>
+    </>
   )
 }
+function useRef(arg0: null) {
+  throw new Error("Function not implemented.")
+}
+
+function MapboxGeocoding(arg0: { accessToken: any }) {
+  throw new Error("Function not implemented.")
+}
+

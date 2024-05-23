@@ -1,6 +1,6 @@
 import { Box, TextField } from '@mui/material'
 import React, { ChangeEvent, useContext, useState } from 'react'
-import { OrderContext } from '../../context/OrderContext'
+import { OrderContext } from '../../../context/OrderContext'
 
 export const ReceiverName = () => {
   const { setReceiverName } = useContext(OrderContext)

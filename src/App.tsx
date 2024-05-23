@@ -9,7 +9,8 @@ import Header from './components/Header';
 import { ThemeProvider } from '@mui/material';
 import { theme } from './themes/theme';
 import { MainPage } from './pages/MainPage';
-import { OrderState } from './components/context/OrderContext';
+import { OrderState } from './context/OrderContext';
+import { AuthPage } from './pages/AuthPage';
 
 
 
@@ -17,9 +18,10 @@ function App() {
   return (
     <>
       <ThemeProvider theme={ theme }>
-        <OrderState>
+        {/* <OrderState>
           <MainPage />
-        </OrderState>
+        </OrderState> */}
+        <AuthPage />
       </ThemeProvider>
     </>
   )

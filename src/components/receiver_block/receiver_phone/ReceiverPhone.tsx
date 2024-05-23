@@ -1,7 +1,7 @@
 import { Box, Typography } from '@mui/material'
 import MuiPhoneNumber from 'mui-phone-number'
 import React, { useContext, useState } from 'react'
-import { OrderContext } from '../../context/OrderContext'
+import { OrderContext } from '../../../context/OrderContext'
 
 
 export const ReceiverPhone = () => {

@@ -2,7 +2,7 @@ import { Box, Button, ButtonGroup, ToggleButton, ToggleButtonGroup, Typography }
 import MuiPhoneNumber from 'mui-phone-number'
 import React, { useContext, useState } from 'react'
 import { theme } from '../../../themes/theme'
-import { OrderContext } from '../../context/OrderContext'
+import { OrderContext } from '../../../context/OrderContext'
 
 export const DetailsSize = () => {
   // Размер посылки
