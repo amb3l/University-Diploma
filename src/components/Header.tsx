@@ -2,8 +2,11 @@ import { AppBar, Box, Button, Icon, IconButton, Toolbar, Typography } from '@mui
 import AdbIcon from '@mui/icons-material/Adb';
 import React from 'react'
 import { theme } from '../themes/theme';
+import { useNavigate } from 'react-router';
 
 const Header = () => {
+  const navigate = useNavigate()
+
   return (
     <AppBar position="fixed">
       <Toolbar sx={{ justifyContent: 'space-between', py: '1rem', px: '2rem !important'}}>
@@ -32,6 +35,22 @@ const Header = () => {
           
           <Box mt={ 0 }>  
             <Button 
+              onClick={() => navigate('/order')}
+              variant='text'
+              size='large'
+              sx={[
+                { borderRadius: '4px', color: 'gray' },
+                (theme) => ({
+                  '&:hover': {
+                    color: 'white'
+                  },
+                }),
+              ]}
+            > Заказать
+            </Button>
+
+            <Button 
+              onClick={() => navigate('/services')}
               variant='text'
               size='large'
               sx={[
@@ -56,20 +75,6 @@ const Header = () => {
                   },
                 }),
               ]}
-            > Отзывы
-            </Button>
-
-            <Button 
-              variant='text'
-              size='large'
-              sx={[
-                { borderRadius: '4px', color: 'gray' },
-                (theme) => ({
-                  '&:hover': {
-                    color: 'white'
-                  },
-                }),
-              ]}
             > Тарифы
             </Button>
           </Box>
@@ -77,6 +82,7 @@ const Header = () => {
         </Box>
 
         <Button 
+          onClick={() => navigate('/auth')}
           variant='contained'
           size='large'
           sx={[

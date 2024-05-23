@@ -2,20 +2,22 @@ import { Box, Button, TextField, Typography } from '@mui/material'
 import { title } from 'process'
 import React, { useCallback, useState } from 'react'
 import ArrowBackIcon from '@mui/icons-material/ArrowBack'
+import {useNavigate} from 'react-router-dom'
 
 
 export const LogIn = () => {
   const [emailValue, setEmailValue] = useState('')
   const [passwordValue, setPasswordValue] = useState('')
   const [isLoading, setIsLoadin] = useState(false)
+  const navigate = useNavigate()
   
 
   const handleLoggingIn = () => {
-
+    
   }
 
   const handleBackClick = () => {
-
+    navigate(-1)
   }
 
   const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {

@@ -11,6 +11,7 @@ import { theme } from './themes/theme';
 import { MainPage } from './pages/MainPage';
 import { OrderState } from './context/OrderContext';
 import { AuthPage } from './pages/AuthPage';
+import { CustomRouter } from './components/CustomRouter';
 
 
 
@@ -18,10 +19,9 @@ function App() {
   return (
     <>
       <ThemeProvider theme={ theme }>
-        {/* <OrderState>
-          <MainPage />
-        </OrderState> */}
-        <AuthPage />
+        <OrderState>
+          <CustomRouter />
+        </OrderState>
       </ThemeProvider>
     </>
   )
