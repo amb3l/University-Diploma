@@ -3,18 +3,31 @@ import { title } from 'process'
 import React, { useCallback, useState } from 'react'
 import ArrowBackIcon from '@mui/icons-material/ArrowBack'
 import {useNavigate} from 'react-router-dom'
+import axios from 'axios'
+
+interface IUser {
+  id: number,
+  name: string,
+  email: string,
+  password: string
+}
 
 
 export const LogIn = () => {
   const [emailValue, setEmailValue] = useState('')
   const [passwordValue, setPasswordValue] = useState('')
-  const [isLoading, setIsLoadin] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
   const navigate = useNavigate()
   
 
-  const handleLoggingIn = () => {
-    
-  }
+  const handleLoggingIn = useCallback(async () => {
+    const response = await axios.post('http://localhost:8000/api/token/', {
+      email: emailValue,
+      password: passwordValue
+    })
+
+    console.log(response.data)
+  }, [emailValue, passwordValue])
 
   const handleBackClick = () => {
     navigate(-1)
