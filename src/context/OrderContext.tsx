@@ -52,7 +52,7 @@ const initialContext: OrderContext = {
 
 export const OrderContext = createContext<OrderContext>(initialContext)
 
-export const OrderState = ({ children }: {children: React.ReactNode}) => {
+export const OrderStateContext = ({ children }: {children: React.ReactNode}) => {
   // Sender states
   const [senderCity, setSenderCity] = useState('')
   const [senderPlatform, setSenderPlatform] = useState('')

@@ -9,20 +9,26 @@ import Header from './components/OrderPageHeader';
 import { ThemeProvider } from '@mui/material';
 import { theme } from './themes/theme';
 import { MainPage } from './pages/MainPage';
-import { OrderState } from './context/OrderContext';
+import { OrderStateContext } from './context/OrderContext';
 import { AuthPage } from './pages/AuthPage';
 import { CustomRouter } from './components/CustomRouter';
+import { useAuth } from './hooks/useAuth';
+import { AuthContext } from './context/AuthContext';
 
 
 
 function App() {
+  const { user, login, logout, setUser } = useAuth();
+
   return (
     <>
-      <ThemeProvider theme={ theme }>
-        <OrderState>
-          <CustomRouter />
-        </OrderState>
-      </ThemeProvider>
+      <AuthContext.Provider value={{ user, setUser }}>
+        <ThemeProvider theme={ theme }>
+          <OrderStateContext>
+            <CustomRouter />
+          </OrderStateContext>
+        </ThemeProvider>
+      </AuthContext.Provider>
     </>
   )
 }

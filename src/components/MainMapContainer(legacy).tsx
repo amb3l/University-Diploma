@@ -2,7 +2,7 @@ import Map, { CircleLayer, GeolocateControl, Layer, MapLayerMouseEvent, Marker, 
 import React, { useCallback, useEffect, useState } from 'react'
 import { theme } from '../themes/theme'
 import LocationOnSharpIcon from '@mui/icons-material/LocationOnSharp'
-import { Typography } from "@mui/material"
+import { Box, CircularProgress, Typography } from "@mui/material"
 import { geojson } from '../data/drone-platforms'
 
 
@@ -78,7 +78,8 @@ export const MainMapContainer = () => {
   }, [])
 
   return (
-    <>
+    <>    
+
       <Map
         mapboxAccessToken={ mapToken }
         initialViewState={{

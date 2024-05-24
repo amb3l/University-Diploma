@@ -5,29 +5,35 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack'
 import {useNavigate} from 'react-router-dom'
 import axios, { AxiosError } from 'axios'
 import { useAuth } from '../../hooks/useAuth'
-import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline'
 import { theme } from '../../themes/theme'
+import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline'
 
 
-export const LogIn = () => {
+export const Registraion = () => {
+  const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState('')
+
+  const [nameValue, setNameValue] = useState('')
   const [emailValue, setEmailValue] = useState('')
   const [passwordValue, setPasswordValue] = useState('')
-  const [isLoading, setIsLoading] = useState(false)
   const navigate = useNavigate()
   const { login } = useAuth()
   
 
-  const handleLogIn = useCallback(async () => {
+  const handleRegistration = useCallback(async () => {
     try {
       setIsLoading(true)
-      const response = await axios.post('http://localhost:8000/api/token/', {
+      const response = await axios.post('http://localhost:8000/api/register', {
+        name: nameValue,
         email: emailValue,
         password: passwordValue
       })
       setIsLoading(false)
       console.log(response.data)
       // login(response.data)
+
+      navigate('/order')
+
 
     } catch (e: unknown) {
       const error = e as AxiosError
@@ -47,6 +53,10 @@ export const LogIn = () => {
 
   const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPasswordValue(e.target.value)
+  }
+
+  const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setNameValue(e.target.value)
   }
 
 
@@ -96,9 +106,14 @@ export const LogIn = () => {
         <ArrowBackIcon />
       </Button>
       <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', mb: '3rem' }}>
-        <Typography variant='h5' fontWeight={500}>
-          Войдите в аккаунт
-        </Typography>
+        <Box textAlign={'center'}>
+          <Typography variant='h5' fontWeight={500} sx={{ mb: '1rem' }}>
+            Создайте аккаунт
+          </Typography>
+          <Typography variant='body1' fontWeight={500}>
+            Время попробовать! 
+          </Typography>
+        </Box>
       </Box>
       {error.length ?
         <Box
@@ -115,8 +130,28 @@ export const LogIn = () => {
           <ErrorOutlineIcon />
         </Box>
         : null
-      } 
+      }      
+
       
+      <Box my='0.5rem'>
+        <TextField
+          error={ error.length ? true : false }
+          helperText={ error.length ? '' : error }
+          value={nameValue}
+          onChange={handleNameChange}
+          placeholder='Введите имя'
+          fullWidth
+          sx={{
+            "& .MuiOutlinedInput-root": {
+              borderRadius: "1.5rem",
+              backgroundColor: '#efefee',
+              fontSize: '1.2rem',
+              pl: '0.5rem'
+            }
+          }}
+        />
+      </Box>
+
       <Box my='0.5rem'>
         <TextField
           error={ error.length ? true : false }
@@ -157,7 +192,7 @@ export const LogIn = () => {
 
       <Box mt='3rem'>
         <Button
-          onClick={handleLogIn}
+          onClick={handleRegistration}
           fullWidth
           variant='outlined'
           sx={[
@@ -177,29 +212,7 @@ export const LogIn = () => {
           ]}
         >
           <Typography fontWeight='500'>
-            Войти
-          </Typography>
-        </Button>
-      </Box>
-
-      <Box mt='0.5rem'>
-        <Button
-          onClick={() => navigate('/auth/reg')}
-          fullWidth
-          variant='outlined'
-          sx={[
-            { borderRadius: '1.5rem',
-            textTransform: 'none',
-            height: '60px',},
-            (theme) => ({
-              '&:hover': {
-                backgroundColor: '#efefee',
-              },
-            }),
-          ]}
-        >
-          <Typography fontWeight='500'>
-            Создать аккаунт
+            Продолжить
           </Typography>
         </Button>
       </Box>

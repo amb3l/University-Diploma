@@ -5,7 +5,7 @@ export const PasspContent = ({ children }: { children: React.ReactNode }) => {
   return (
     <Box
       sx={{
-        width: '500px',
+        width: '400px',
       }}
     >
       {children} 

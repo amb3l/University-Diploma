@@ -41,13 +41,13 @@ export const theme = createTheme({
       }
     },
     MuiOutlinedInput: {
-       styleOverrides: {
-         root: {
-            [`& .MuiOutlinedInput-notchedOutline`]: {
-             borderWidth: 0
-            }
-         }
-       }
+      styleOverrides: {
+        root: {
+          [`& .MuiOutlinedInput-notchedOutline`]: {
+            borderWidth: 0
+          }
+        }
+      }
     }
   }
 }) 
