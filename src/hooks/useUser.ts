@@ -4,7 +4,7 @@ import { useLocalStorage } from "./useLocalStorage"
 
 
 export interface User {
-  id?: string
+  id: string
   name: string
   email: string
   accessToken: string
@@ -13,18 +13,20 @@ export interface User {
 
 
 export const useUser = () => {
-  const { user, setUser } = useContext(AuthContext)
+  const { user, addUserToContext, removeUserFromContext } = useContext(AuthContext)
   const { setItem } = useLocalStorage()
 
-  const addUser = (user: User) => {
-    setUser(user)
-    setItem("user", JSON.stringify(user))
-  };
+  const addUser = (u: User) => {
+    addUserToContext(u)
+    console.log('user context')
+    console.log(user)
+    setItem("user", JSON.stringify(u))
+  }
 
   const removeUser = () => {
-    setUser(null)
+    removeUserFromContext()
     setItem("user", "")
-  };
+  }
 
-  return { user, addUser, removeUser, setUser }
-};
+  return { user, addUser, removeUser, addUserToContext, removeUserFromContext }
+}

@@ -46,6 +46,7 @@ export const MainMapContainer = () => {
   }
   
   
+  
   // Обработчик наведения мыши на точку на карте.
   // При наведении появляется pop-up окно с информацией.
   const mouseEnterHandler = useCallback((e: MapLayerMouseEvent) => {

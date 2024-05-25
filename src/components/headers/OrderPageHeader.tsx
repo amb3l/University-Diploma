@@ -1,14 +1,30 @@
 import { AppBar, Box, Button, Icon, IconButton, Toolbar, Typography } from '@mui/material'
 import AdbIcon from '@mui/icons-material/Adb';
-import React from 'react'
-import { theme } from '../themes/theme';
+import React, { useContext, useEffect, useState } from 'react'
+import { theme } from '../../themes/theme';
 import { useNavigate } from 'react-router';
+import { AuthContext } from '../../context/AuthContext';
+import { useLocalStorage } from '../../hooks/useLocalStorage';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import { useAuth } from '../../hooks/useAuth';
 
-const Header = () => {
+const OrderPageHeader = () => {
+  const { user } = useContext(AuthContext)
   const navigate = useNavigate()
+  const { logout } = useAuth()
 
+  const [name, setName] = useState('')
+
+
+  useEffect(() => {
+    if(user) {
+      setName(user.name)
+    }
+  }, [user])
+
+  
   return (
-    <AppBar position="fixed">
+    <AppBar position="fixed" sx={{opacity: 0.95, background: 'linear-gradient(90deg, #312d28 60%, #534F47 90%)'}}>
       <Toolbar sx={{ justifyContent: 'space-between', py: '1rem', px: '2rem !important'}}>
         <Box 
           width={'auto'}
@@ -81,24 +97,43 @@ const Header = () => {
 
         </Box>
 
-        <Button 
-          onClick={() => navigate('/auth')}
-          variant='contained'
-          size='large'
-          sx={[
-            { color: 'InfoText', borderRadius: '24px', backgroundColor: 'white'},
-            (theme) => ({
-              '&:hover': {
-                backgroundColor: 'lightgray'
-              },
-            }),
-          ]}
-        > Войти
-        </Button>
+        { user ?
+          <Box 
+            onClick={()=> { navigate('/me') }}
+            sx={{
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              gap: '0.5rem',
+              cursor: 'pointer'
+            }}
+          >
+            <Typography>
+              { name }
+            </Typography>
+
+            <AccountCircleIcon fontSize='large' />
+          </Box>
+          :
+          <Button 
+            onClick={() => navigate('/auth')}
+            variant='contained'
+            size='large'
+            sx={[
+              { color: 'InfoText', borderRadius: '24px', backgroundColor: 'white'},
+              (theme) => ({
+                '&:hover': {
+                  backgroundColor: 'lightgray'
+                },
+              }),
+            ]}
+          > Войти
+          </Button>
+        }
         
       </Toolbar>
     </AppBar>
   )
 }
 
-export default Header
+export default OrderPageHeader

@@ -8,9 +8,7 @@ export const geojson: FeatureCollection = {
       type: "Feature",
       properties: {
         PLATFORM_ID: 230303,
-        NAME: "ICTIS Platform, I Corpus",
-        DRONE_TYPE: "air",
-        MODIFIED_D: "2024/05/18"
+        NAME: "ИКТИБ платформа, корпус И"
       },
       geometry: {
         type: "Point",
@@ -21,9 +19,7 @@ export const geojson: FeatureCollection = {
       type: "Feature",
       properties: {
         PLATFORM_ID: 230304,
-        NAME: "ICTIS Platform, G Corpus",
-        DRONE_TYPE: "air",
-        MODIFIED_D: "2024/05/18"
+        NAME: "ИКТИБ платформа, корпус Г",
       },
       geometry: {
         type: "Point",

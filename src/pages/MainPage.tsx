@@ -1,4 +1,4 @@
-import Header from '../components/OrderPageHeader'
+import OrderPageHeader from '../components/headers/OrderPageHeader'
 import { MainMapContainer } from '../components/MainMapContainer(legacy)'
 import { ServicePanelWrapper } from '../components/ServicePanelWrapper'
 import { ServicePanel } from '../components/ServicePanel'
@@ -15,7 +15,7 @@ export const MainPage = () => {
   return (
     <>
 
-      <Header />      
+      <OrderPageHeader />      
 
       <ServicePanelWrapper>
         <ServicePanel onSubmit={handleSubmitForm}/>

@@ -7,6 +7,8 @@ import axios, { AxiosError } from 'axios'
 import { useAuth } from '../../hooks/useAuth'
 import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline'
 import { theme } from '../../themes/theme'
+import { User } from '../../hooks/useUser'
+import { AuthResponse } from './Registration'
 
 
 export const LogIn = () => {
@@ -21,13 +23,24 @@ export const LogIn = () => {
   const handleLogIn = useCallback(async () => {
     try {
       setIsLoading(true)
-      const response = await axios.post('http://localhost:8000/api/token/', {
+      const response = await axios.post<AuthResponse>('http://localhost:8000/api/login', {
         email: emailValue,
         password: passwordValue
       })
       setIsLoading(false)
       console.log(response.data)
-      // login(response.data)
+      
+      const user: User = {
+        id: response.data.me.id,
+        name: response.data.me.name,
+        email: response.data.me.email,
+        accessToken: response.data.access,
+        refreshToken: response.data.refresh
+      } 
+      login(user)
+
+      navigate('/order')
+      
 
     } catch (e: unknown) {
       const error = e as AxiosError
@@ -73,11 +86,11 @@ export const LogIn = () => {
             right: 0,
             position: 'fixed',
             backgroundColor: 'black',
-            opacity: 0.6,
+            opacity: 0.5,
             zIndex: '1100'
           }}
         >
-          <CircularProgress color='success' />
+          <CircularProgress sx={{color: theme.palette.success.light}} />
         </Box>
         : null
       }

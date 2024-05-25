@@ -4,7 +4,7 @@ import { useLocalStorage } from "./useLocalStorage";
 
 export const useAuth = () => {
   // we can re export the user methods or object from this hook
-  const { user, addUser, removeUser, setUser } = useUser();
+  const { user, addUser, removeUser, addUserToContext, removeUserFromContext } = useUser();
   const { getItem } = useLocalStorage();
 
   useEffect(() => {
@@ -12,15 +12,17 @@ export const useAuth = () => {
     if (user) {
       addUser(JSON.parse(user));
     }
-  }, [addUser, getItem]);
+  }, []);
 
   const login = (user: User) => {
-    addUser(user);
+    addUser(user)
+    console.log('auth!')
+    console.log(user)
   };
 
   const logout = () => {
     removeUser();
   };
 
-  return { user, login, logout, setUser };
+  return { user, login, logout, addUserToContext, removeUserFromContext };
 };

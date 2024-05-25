@@ -7,6 +7,18 @@ import axios, { AxiosError } from 'axios'
 import { useAuth } from '../../hooks/useAuth'
 import { theme } from '../../themes/theme'
 import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline'
+import { User } from '../../hooks/useUser'
+
+
+export interface AuthResponse {
+  me: {
+    id: string
+    name: string
+    email: string
+  }
+  refresh: string
+  access: string
+}
 
 
 export const Registraion = () => {
@@ -18,19 +30,27 @@ export const Registraion = () => {
   const [passwordValue, setPasswordValue] = useState('')
   const navigate = useNavigate()
   const { login } = useAuth()
-  
+    
 
   const handleRegistration = useCallback(async () => {
     try {
       setIsLoading(true)
-      const response = await axios.post('http://localhost:8000/api/register', {
+      const response = await axios.post<AuthResponse>('http://localhost:8000/api/register', {
         name: nameValue,
         email: emailValue,
         password: passwordValue
       })
       setIsLoading(false)
       console.log(response.data)
-      // login(response.data)
+
+      const user: User = {
+        id: response.data.me.id,
+        name: response.data.me.name,
+        email: response.data.me.email,
+        accessToken: response.data.access,
+        refreshToken: response.data.refresh
+      } 
+      login(user)
 
       navigate('/order')
 
@@ -83,11 +103,11 @@ export const Registraion = () => {
             right: 0,
             position: 'fixed',
             backgroundColor: 'black',
-            opacity: 0.6,
+            opacity: 0.5,
             zIndex: '1100'
           }}
         >
-          <CircularProgress color='success' />
+          <CircularProgress sx={{color: theme.palette.success.light}} />
         </Box>
         : null
       }
