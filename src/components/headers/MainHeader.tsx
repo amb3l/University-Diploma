@@ -1,33 +1,30 @@
 import { AppBar, Box, Button, Icon, IconButton, Toolbar, Typography } from '@mui/material'
-import AdbIcon from '@mui/icons-material/Adb';
+import SmartToyIcon from '@mui/icons-material/SmartToy';
 import React, { useCallback, useContext, useEffect, useState } from 'react'
 import { theme } from '../../themes/theme';
 import { useNavigate } from 'react-router';
-import { AuthContext } from '../../context/AuthContext';
-import { useLocalStorage } from '../../hooks/useLocalStorage';
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import ExitToAppIcon from '@mui/icons-material/ExitToApp';
-import { useAuth } from '../../hooks/useAuth';
+import { AuthContext } from '../../context/AuthContext'
+import AccountCircleIcon from '@mui/icons-material/AccountCircle'
+import LogoutIcon from '@mui/icons-material/Logout'
 
 
 export const MainHeader = () => {
-  const { user } = useContext(AuthContext)
+  const { currentUserData, logout } = useContext(AuthContext)
   const navigate = useNavigate()
-  const { logout } = useAuth()
 
   const [name, setName] = useState('')
   
 
   useEffect(() => {
-    if(user) {
-      setName(user.name)
+    if(currentUserData) {
+      setName(currentUserData.name)
     }
-  }, [user])
+  }, [currentUserData])
 
 
   return (
-    <AppBar position="fixed">
-      <Toolbar sx={{ justifyContent: 'space-between', py: 2, px: '12rem !important'}}>
+    <AppBar position="fixed" sx={{ backgroundColor: theme.palette.primary.main }}>
+      <Toolbar sx={{ justifyContent: 'space-between', py: 1, px: '12rem !important'}}>
         <Box 
           width={'auto'}
           display={'flex'}
@@ -37,25 +34,19 @@ export const MainHeader = () => {
             width={'auto'}
             display={'flex'}
             alignItems={'center'}
-            sx={{ mr: 4, ml: 0 }}
+            sx={{ mr: 4, pb: 0.5 }}
           >
-            <AdbIcon 
-              sx={{ 
-                display: { xs: 'none', md: 'flex' }, 
-                mb: 0.5,
-                fontSize: 30,
-              }}
-            />
-            <Typography variant='button' component="div" sx={{ fontSize: 28, mr: 0 }}>
+            <SmartToyIcon sx={{mb: 0.5, mr: 0.5}} fontSize='large'/>
+            <Typography variant='h4'>
               RoboLivery
             </Typography>
           </Box>
           
-          <Box mt={ 0 }>  
+          <Box>  
             <Button 
               onClick={() => navigate('/order')}
               variant='text'
-              size='large'
+              size='medium'
               sx={[
                 { borderRadius: '4px', color: 'gray' },
                 (theme) => ({
@@ -99,13 +90,13 @@ export const MainHeader = () => {
 
         </Box>
 
-        { user ?
+        { currentUserData ?
           <Box 
             sx={{
               display: 'flex',
               justifyContent: 'center',
               alignItems: 'center',
-              gap: '1rem',
+              gap: '2rem',
               cursor: 'pointer'
             }}
           >
@@ -129,8 +120,19 @@ export const MainHeader = () => {
             <div
               onClick={() => { logout(); navigate('/'); }}
             >
-              <ExitToAppIcon
-                fontSize='medium'
+              <LogoutIcon
+                fontSize='small'
+                sx={{
+                  cursor: 'pointer'
+                }}
+              />
+            </div>
+
+            <div
+              onClick={() => {  }}
+            >
+              <LogoutIcon
+                fontSize='small'
                 sx={{
                   cursor: 'pointer'
                 }}

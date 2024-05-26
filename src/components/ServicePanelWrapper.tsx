@@ -14,7 +14,7 @@ export const ServicePanelWrapper = ({ children }: { children: React.ReactNode })
         marginBlock: '1rem',
         marginBottom: '0',
         marginTop: '0px',
-        paddingTop: '6rem',
+        paddingTop: '5rem',
         paddingBottom: '1rem',
         top: 0,
       }}

@@ -1,16 +1,45 @@
 import { Box, Button, Typography } from '@mui/material'
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { ServiceList } from './ServiceList'
 import { theme } from '../themes/theme'
 
 export const ServicePanel = ({ onSubmit }: { onSubmit: () => string }) => {
+  const [isScrolledDown, setIsScrolledDown] = useState(false)
+  const elementRef = useRef(null)
 
   const submitHandler = (e: React.FormEvent) => {
     onSubmit()
   }
+  
+  useEffect(() => {
+    const handleScroll = () => {
+      const element = elementRef.current
+      if (element) {
+        const scrollTop = element.scrollTop
+        const scrollHeight = element.scrollHeight - element.clientHeight
+
+        if ((scrollTop + 2) >= scrollHeight) {
+          setIsScrolledDown(true)
+        } else {
+          setIsScrolledDown(false)
+        }
+      }
+    }
+
+    if (elementRef.current) {
+      elementRef.current.addEventListener('scroll', handleScroll);
+    }
+
+    return () => {
+      if (elementRef.current) {
+        elementRef.current.removeEventListener('scroll', handleScroll);
+      }
+    };
+  }, []);
 
   return (
     <Box
+      ref={elementRef}
       sx={{
         borderRadius: '24px',
         height: '100%',
@@ -25,10 +54,10 @@ export const ServicePanel = ({ onSubmit }: { onSubmit: () => string }) => {
       <form onSubmit={submitHandler}>
         <ServiceList />
       
-        <Box 
+        <Box
           sx={{ 
             padding: '0.5rem',
-            boxShadow:'0 -4px 20px rgba(0,0,0,.12)',
+            filter: !isScrolledDown ? 'drop-shadow(0 -4px 20px rgba(0,0,0,.12))' : 'none',
             position: 'sticky',
             bottom: 0,
             backgroundColor:'white',
@@ -82,3 +111,4 @@ export const ServicePanel = ({ onSubmit }: { onSubmit: () => string }) => {
     </Box>
   )
 }
+

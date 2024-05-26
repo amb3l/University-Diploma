@@ -1,14 +1,13 @@
 import { Box, Button, CircularProgress, TextField, Typography } from '@mui/material'
 import { title } from 'process'
-import React, { useCallback, useState } from 'react'
+import React, { useCallback, useContext, useState } from 'react'
 import ArrowBackIcon from '@mui/icons-material/ArrowBack'
 import {useNavigate} from 'react-router-dom'
 import axios, { AxiosError } from 'axios'
-import { useAuth } from '../../hooks/useAuth'
-import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline'
+import ErrorIcon from '@mui/icons-material/Error';
 import { theme } from '../../themes/theme'
-import { User } from '../../hooks/useUser'
 import { AuthResponse } from './Registration'
+import { AuthContext } from '../../context/AuthContext'
 
 
 export const LogIn = () => {
@@ -17,38 +16,23 @@ export const LogIn = () => {
   const [passwordValue, setPasswordValue] = useState('')
   const [isLoading, setIsLoading] = useState(false)
   const navigate = useNavigate()
-  const { login } = useAuth()
+  const { login } = useContext(AuthContext)
   
 
-  const handleLogIn = useCallback(async () => {
+  const handleLogIn = async () => {
     try {
       setIsLoading(true)
-      const response = await axios.post<AuthResponse>('http://localhost:8000/api/login', {
-        email: emailValue,
-        password: passwordValue
-      })
+      await login(emailValue, passwordValue)
       setIsLoading(false)
-      console.log(response.data)
+      navigate('/')
       
-      const user: User = {
-        id: response.data.me.id,
-        name: response.data.me.name,
-        email: response.data.me.email,
-        accessToken: response.data.access,
-        refreshToken: response.data.refresh
-      } 
-      login(user)
-
-      navigate('/order')
-      
-
     } catch (e: unknown) {
-      const error = e as AxiosError
       setIsLoading(false)
+      const error = e as AxiosError
       setError(error.message)
       console.log(error)
     }
-  }, [emailValue, passwordValue, isLoading])
+  }
 
   const handleBackClick = () => {
     navigate(-1)
@@ -125,7 +109,7 @@ export const LogIn = () => {
             right: '1rem'
           }}
         > 
-          <ErrorOutlineIcon />
+          <ErrorIcon />
         </Box>
         : null
       } 

@@ -5,7 +5,7 @@ import { Edit, Delete, TrackChanges, Repeat, ThumbUp } from '@mui/icons-material
 import { MainHeader } from '../components/headers/MainHeader';
 
 export const UserPage = () => {
-  const { user } = useContext(AuthContext);
+  const { currentUserData } = useContext(AuthContext);
   const [activeTab, setActiveTab] = React.useState(0);
 
   const handleTabChange = (event: React.SyntheticEvent, newValue: number) => {
@@ -18,30 +18,31 @@ export const UserPage = () => {
       <Container maxWidth="lg" sx={{ py: 8, mt: 8 }}>
         <Box display="flex" justifyContent="space-between" alignItems="center" mb={6}>
           <Typography variant="h2">Личный кабинет</Typography>
-          <Button variant="contained" color="primary" >
-            Выйти
+
+          <Button>
+            
           </Button>
         </Box>
 
-        {user ? (
+        {currentUserData ? (
           <Grid container spacing={6}>
             <Grid item xs={12} md={4}>
               <Card elevation={3}>
                 <CardContent>
                   <Box display="flex" flexDirection="column" alignItems="center" mb={2}>
                     <Avatar
-                      alt={user.name}
-                      src={`https://avatars.dicebear.com/api/initials/${user.name}.svg`}
+                      alt={currentUserData.name}
+                      src={`https://api.dicebear.com/8.x/bottts/svg`}
                       sx={{ width: 120, height: 120 }}
                     />
                     <Typography variant="h5" mt={2}>
-                      {user.name}
+                      {currentUserData.name}
                     </Typography>
                   </Box>
                   <Divider />
                   <Box mt={2}>
                     <Typography variant="body1" gutterBottom>
-                      Email: {user.email}
+                      Email: {currentUserData.email}
                     </Typography>
                     <Typography variant="body1" gutterBottom>
                       Телефон: +7 (123) 456-78-90

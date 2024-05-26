@@ -12,8 +12,7 @@ import { MainPage } from './pages/MainPage';
 import { OrderStateContext } from './context/OrderContext';
 import { AuthPage } from './pages/AuthPage';
 import { CustomRouter } from './components/router/CustomRouter';
-import { useAuth } from './hooks/useAuth';
-import { AuthContext, UserData } from './context/AuthContext';
+import { AuthContext, AuthProvider } from './context/AuthContext';
 
 
 
@@ -21,13 +20,13 @@ function App() {
 
   return (
     <>
-      <UserData>
+      <AuthProvider>
         <ThemeProvider theme={ theme }>
           <OrderStateContext>
             <CustomRouter />
           </OrderStateContext>
         </ThemeProvider>
-      </UserData>
+      </AuthProvider>
     </>
   )
 }

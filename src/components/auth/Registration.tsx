@@ -1,13 +1,12 @@
 import { Box, Button, CircularProgress, TextField, Typography } from '@mui/material'
 import { title } from 'process'
-import React, { useCallback, useState } from 'react'
+import React, { useCallback, useContext, useState } from 'react'
 import ArrowBackIcon from '@mui/icons-material/ArrowBack'
 import {useNavigate} from 'react-router-dom'
 import axios, { AxiosError } from 'axios'
-import { useAuth } from '../../hooks/useAuth'
 import { theme } from '../../themes/theme'
-import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline'
-import { User } from '../../hooks/useUser'
+import ErrorIcon from '@mui/icons-material/Error'
+import { AuthContext } from '../../context/AuthContext'
 
 
 export interface AuthResponse {
@@ -29,39 +28,23 @@ export const Registraion = () => {
   const [emailValue, setEmailValue] = useState('')
   const [passwordValue, setPasswordValue] = useState('')
   const navigate = useNavigate()
-  const { login } = useAuth()
+  const { register } = useContext(AuthContext)
     
 
-  const handleRegistration = useCallback(async () => {
+  const handleRegistration = async () => {
     try {
       setIsLoading(true)
-      const response = await axios.post<AuthResponse>('http://localhost:8000/api/register', {
-        name: nameValue,
-        email: emailValue,
-        password: passwordValue
-      })
+      await register(nameValue, emailValue, passwordValue)
       setIsLoading(false)
-      console.log(response.data)
-
-      const user: User = {
-        id: response.data.me.id,
-        name: response.data.me.name,
-        email: response.data.me.email,
-        accessToken: response.data.access,
-        refreshToken: response.data.refresh
-      } 
-      login(user)
-
-      navigate('/order')
-
-
+      navigate('/')
+      
     } catch (e: unknown) {
-      const error = e as AxiosError
       setIsLoading(false)
+      const error = e as AxiosError
       setError(error.message)
       console.log(error)
     }
-  }, [emailValue, passwordValue, isLoading])
+  }
 
   const handleBackClick = () => {
     navigate(-1)
@@ -147,7 +130,7 @@ export const Registraion = () => {
             right: '1rem'
           }}
         > 
-          <ErrorOutlineIcon />
+          <ErrorIcon />
         </Box>
         : null
       }      
