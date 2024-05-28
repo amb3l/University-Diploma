@@ -21,7 +21,7 @@ const OrderPageHeader = () => {
 
   
   return (
-    <AppBar position="fixed" sx={{opacity: 0.9, background: 'linear-gradient(90deg, #312d28 60%, #534F47 90%)'}}>
+    <AppBar position="fixed" sx={{opacity: 0.92, background: 'linear-gradient(90deg, #312d28 60%, #534F47 90%)'}}>
       <Toolbar sx={{ justifyContent: 'space-between', py: '0.5rem', px: '2rem !important'}}>
         <Box 
           width={'auto'}
@@ -32,7 +32,7 @@ const OrderPageHeader = () => {
             width={'auto'}
             display={'flex'}
             alignItems={'center'}
-            sx={{ mr: 4, pb: 0.5 }}
+            sx={{ mr: 3, pb: 0.5 }}
           >
             <SmartToyIcon sx={{mb: 0.5, mr: 0.5}} />
             <Typography variant='h5'>
@@ -40,7 +40,7 @@ const OrderPageHeader = () => {
             </Typography>
           </Box>
           
-          <Box mt={ 0 }>  
+          <Box>  
             <Button 
               onClick={() => navigate('/order')}
               variant='text'

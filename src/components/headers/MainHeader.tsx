@@ -24,8 +24,8 @@ export const MainHeader = () => {
 
   return (
     <AppBar position="fixed" sx={{ backgroundColor: theme.palette.primary.main }}>
-      <Toolbar sx={{ justifyContent: 'space-between', py: 1, px: '12rem !important'}}>
-        <Box 
+      <Toolbar sx={{ justifyContent: 'space-between', py: 1, px: '2rem !important'}}>
+        <Box
           width={'auto'}
           display={'flex'}
           alignItems={'center'}
@@ -34,21 +34,21 @@ export const MainHeader = () => {
             width={'auto'}
             display={'flex'}
             alignItems={'center'}
-            sx={{ mr: 4, pb: 0.5 }}
+            sx={{ mr: 3, pb: 0.5 }}
           >
-            <SmartToyIcon sx={{mb: 0.5, mr: 0.5}} fontSize='large'/>
-            <Typography variant='h4'>
+            <SmartToyIcon sx={{mb: 0.5, mr: 0.5}}/>
+            <Typography variant='h5'>
               RoboLivery
             </Typography>
           </Box>
           
-          <Box>  
+          <Box sx={{ display: 'flex', gap: 2 }}>  
             <Button 
               onClick={() => navigate('/order')}
               variant='text'
               size='medium'
               sx={[
-                { borderRadius: '4px', color: 'gray' },
+                { borderRadius: '4px', color: '#94949c' },
                 (theme) => ({
                   '&:hover': {
                     color: 'white'
@@ -63,7 +63,7 @@ export const MainHeader = () => {
               variant='text'
               size='large'
               sx={[
-                { borderRadius: '4px', color: 'gray' },
+                { borderRadius: '4px', color: '#94949c' },
                 (theme) => ({
                   '&:hover': {
                     color: 'white'
@@ -77,7 +77,7 @@ export const MainHeader = () => {
               variant='text'
               size='large'
               sx={[
-                { borderRadius: '4px', color: 'gray' },
+                { borderRadius: '4px', color: '#94949c' },
                 (theme) => ({
                   '&:hover': {
                     color: 'white'
@@ -96,7 +96,7 @@ export const MainHeader = () => {
               display: 'flex',
               justifyContent: 'center',
               alignItems: 'center',
-              gap: '2rem',
+              gap: '1rem',
               cursor: 'pointer'
             }}
           >
@@ -116,28 +116,6 @@ export const MainHeader = () => {
 
               <AccountCircleIcon fontSize='large' />
             </Box>
-            
-            <div
-              onClick={() => { logout(); navigate('/'); }}
-            >
-              <LogoutIcon
-                fontSize='small'
-                sx={{
-                  cursor: 'pointer'
-                }}
-              />
-            </div>
-
-            <div
-              onClick={() => {  }}
-            >
-              <LogoutIcon
-                fontSize='small'
-                sx={{
-                  cursor: 'pointer'
-                }}
-              />
-            </div>
           </Box>
           :
           <Button 

@@ -61,3 +61,7 @@
   background-size: cover;
   background-image: url('./data/auth-background.jpg');
 }
+
+body.modal-open {
+  overflow: hidden;
+}

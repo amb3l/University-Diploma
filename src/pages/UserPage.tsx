@@ -1,101 +1,203 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { Container, Grid, Card, CardContent, Typography, Button, Box, Avatar, Tabs, Tab, Paper, IconButton, Divider } from '@mui/material';
 import { AuthContext } from '../context/AuthContext';
 import { Edit, Delete, TrackChanges, Repeat, ThumbUp } from '@mui/icons-material';
 import { MainHeader } from '../components/headers/MainHeader';
+import LogoutIcon from '@mui/icons-material/Logout'
+import { theme } from '../themes/theme';
+import DriveFileRenameOutlineRoundedIcon from '@mui/icons-material/DriveFileRenameOutlineRounded';
+import { EditUserModal } from '../components/user_page/modal/EditUserModal';
+import { ModalContext } from '../context/ModalContext';
+
+
+const SOFT_BG = '#F0F1F5'
+
 
 export const UserPage = () => {
-  const { currentUserData } = useContext(AuthContext);
-  const [activeTab, setActiveTab] = React.useState(0);
+  const { currentUserData } = useContext(AuthContext)
+  const [activeTab, setActiveTab] = React.useState(0)
+  const { modal, open, close } = useContext(ModalContext)
 
   const handleTabChange = (event: React.SyntheticEvent, newValue: number) => {
     setActiveTab(newValue);
-  };
+  }
+
+  const handleEditClick = () => {
+    open()
+  }
+
+
+  useEffect(() => {
+    if (modal) {
+      document.body.classList.add('modal-open');
+      document.body.style.paddingRight = `${getScrollbarWidth()}px`;
+    } else {
+      document.body.classList.remove('modal-open');
+      document.body.style.paddingRight = '0';
+    }
+  }, [modal])
+
+  const getScrollbarWidth = (): number => {
+    const outer = document.createElement('div');
+    outer.style.visibility = 'hidden';
+    outer.style.overflow = 'scroll';
+    document.body.appendChild(outer);
+    const inner = document.createElement('div');
+    outer.appendChild(inner);
+    const scrollbarWidth = outer.offsetWidth - inner.offsetWidth;
+    outer.parentNode?.removeChild(outer);
+    return scrollbarWidth;
+  }
+
 
   return (
     <>
       <MainHeader/>
-      <Container maxWidth="lg" sx={{ py: 8, mt: 8 }}>
-        <Box display="flex" justifyContent="space-between" alignItems="center" mb={6}>
-          <Typography variant="h2">Личный кабинет</Typography>
 
-          <Button>
-            
-          </Button>
-        </Box>
-
-        {currentUserData ? (
-          <Grid container spacing={6}>
-            <Grid item xs={12} md={4}>
-              <Card elevation={3}>
-                <CardContent>
-                  <Box display="flex" flexDirection="column" alignItems="center" mb={2}>
+      { modal &&  <EditUserModal handleClose={close} /> }
+      
+      
+      <Box sx={{  
+        maxWidth: '560px',
+        display: 'flex',
+        flexDirection: 'column',
+        gap: 2,
+        mt: 10,
+        pt: 2,
+        ml: 'auto',
+        mr: 'auto'
+      }}>
+        <Box>
+          <Card sx={{ boxShadow: 'none' }} >
+            <CardContent>
+              
+              <Box sx={{
+                display: 'flex', 
+                alignItems: 'center', 
+                flexDirection: 'column',
+                gap: 1
+              }}> 
+                <Box 
+                  sx={{
+                    ml: 'auto',
+                    mr: 'auto'
+                  }}
+                  display="flex" 
+                  flexDirection="column" 
+                  alignItems="center" 
+                  gap={2}
+                >
+                  <div onClick={handleEditClick}>
                     <Avatar
                       alt={currentUserData.name}
-                      src={`https://api.dicebear.com/8.x/bottts/svg`}
-                      sx={{ width: 120, height: 120 }}
+                      src={`https://avatar.iran.liara.run/public/boy`}
+                      sx={{ width: 120, height: 120, cursor: 'pointer' }}
                     />
-                    <Typography variant="h5" mt={2}>
-                      {currentUserData.name}
-                    </Typography>
-                  </Box>
-                  <Divider />
-                  <Box mt={2}>
-                    <Typography variant="body1" gutterBottom>
-                      Email: {currentUserData.email}
-                    </Typography>
-                    <Typography variant="body1" gutterBottom>
-                      Телефон: +7 (123) 456-78-90
-                    </Typography>
-                  </Box>
-                </CardContent>
-              </Card>
-            </Grid>
-
-            <Grid item xs={12} md={8}>
-              <Paper elevation={3}>
-                <Tabs value={activeTab} onChange={handleTabChange} indicatorColor="primary">
-                  <Tab label="Все заказы" />
-                  <Tab label="Активные" />
-                  <Tab label="Доставленные" />
-                  <Tab label="Отмененные" />
-                </Tabs>
-                <Box p={3}>
-                  {activeTab === 0 && (
-                    <OrderItem
-                      orderNumber="#1234"
-                      status="Доставлен"
-                      date="15 мая 2023"
-                      actions={[<IconButton><ThumbUp /></IconButton>, <IconButton><Repeat /></IconButton>]}
-                    />
-                  )}
-                  {activeTab === 1 && (
-                    <OrderItem
-                      orderNumber="#5678"
-                      status="В пути"
-                      date="10 мая 2023"
-                      actions={[<IconButton><TrackChanges /></IconButton>, <IconButton><Delete /></IconButton>]}
-                    />
-                  )}
-                  {activeTab === 2 && (
-                    <OrderItem
-                      orderNumber="#9012"
-                      status="Отменен"
-                      date="5 мая 2023"
-                      actions={[<IconButton><Repeat /></IconButton>]}
-                    />
-                  )}
+                  </div>
+                  <div onClick={handleEditClick}>
+                    <Box sx={{ display: 'flex', alignItems: 'center', cursor: 'pointer' }}>
+                      <Typography variant="h5" fontWeight={500}>
+                        {currentUserData.name}
+                      </Typography>
+                      <DriveFileRenameOutlineRoundedIcon 
+                        fontSize='small' 
+                        sx={{ ml: 1, color: 'grey'}}
+                      />
+                    </Box>
+                  </div>
                 </Box>
-              </Paper>
-            </Grid>
-          </Grid>
-        ) : (
-          <Typography variant="body1">Вы не авторизованы.</Typography>
-        )}
-      </Container>
+
+                <Box>
+                  <Typography variant="body1" gutterBottom>
+                    {currentUserData.email}
+                  </Typography>
+                </Box>
+
+              </Box>
+            </CardContent>
+          </Card>
+        </Box>
+
+        <Box>
+          <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
+
+            <Tabs 
+              value={activeTab} 
+              onChange={handleTabChange} 
+              indicatorColor='primary'
+              sx={{
+                display: 'flex',
+                justifyContent: 'center',
+                backgroundColor: '#F0F1F5',
+                borderRadius: 5
+              }}
+              centered
+            >
+              <Tab label="Все заказы" />
+              <Tab label="Активные" />
+              <Tab label="Доставленные" />
+              <Tab label="Отмененные" />
+            </Tabs>
+
+            <Box sx={{ mb: 4 }}>
+              {activeTab === 0 && [
+                <OrderItem
+                orderNumber="#1234"
+                status="Доставлен"
+                date="15 мая 2023"
+                actions={[<IconButton><ThumbUp /></IconButton>, <IconButton><Repeat /></IconButton>]}
+              />,
+              <OrderItem
+                  orderNumber="#1234"
+                  status="Доставлен"
+                  date="15 мая 2023"
+                  actions={[<IconButton><ThumbUp /></IconButton>, <IconButton><Repeat /></IconButton>]}
+              />,
+              <OrderItem
+                  orderNumber="#1234"
+                  status="Доставлен"
+                  date="15 мая 2023"
+                  actions={[<IconButton><ThumbUp /></IconButton>, <IconButton><Repeat /></IconButton>]}
+              />,
+              <OrderItem
+                  orderNumber="#1234"
+                  status="Доставлен"
+                  date="15 мая 2023"
+                  actions={[<IconButton><ThumbUp /></IconButton>, <IconButton><Repeat /></IconButton>]}
+              />,
+              <OrderItem
+                  orderNumber="#1234"
+                  status="Доставлен"
+                  date="15 мая 2023"
+                  actions={[<IconButton><ThumbUp /></IconButton>, <IconButton><Repeat /></IconButton>]}
+              />
+              
+              ]}
+              {activeTab === 1 && (
+                <OrderItem
+                  orderNumber="#5678"
+                  status="В пути"
+                  date="10 мая 2023"
+                  actions={[<IconButton><TrackChanges /></IconButton>, <IconButton><Delete /></IconButton>]}
+                />
+              )}
+              {activeTab === 2 && (
+                <OrderItem
+                  orderNumber="#9012"
+                  status="Отменен"
+                  date="5 мая 2023"
+                  actions={[<IconButton><Repeat /></IconButton>]}
+                />
+              )}
+            </Box>
+
+          </Box>
+        </Box>
+
+      </Box>
     </>
-  );
-};
+  )
+}
 
 const OrderItem: React.FC<{
   orderNumber: string;
@@ -103,9 +205,15 @@ const OrderItem: React.FC<{
   date: string;
   actions: React.ReactNode[];
 }> = ({ orderNumber, status, date, actions }) => {
+
   return (
-    <Box mb={4}>
-      <Card elevation={2}>
+    <Box sx={{
+    }}>
+      <Card sx={{
+        boxShadow: 'none',
+        borderRadius: 5 
+      }}>
+        <Divider/>
         <CardContent>
           <Typography variant="h5" gutterBottom>
             {orderNumber}
@@ -116,13 +224,13 @@ const OrderItem: React.FC<{
           <Typography variant="body1" gutterBottom>
             Дата: {date}
           </Typography>
-          <Divider />
           <Box mt={2} display="flex" justifyContent="space-between">
             {actions.map((action, index) => (
               <Box key={index}>{action}</Box>
             ))}
           </Box>
         </CardContent>
+        <Divider/>
       </Card>
     </Box>
   );

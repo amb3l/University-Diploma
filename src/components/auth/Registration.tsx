@@ -98,7 +98,7 @@ export const Registraion = () => {
       <Button
         sx={{
           position: 'absolute',
-          borderRadius: '50%',
+          borderRadius: '40%',
           minWidth: 'auto',
           padding: '0.5rem',
           top: '1.7rem',
@@ -123,7 +123,7 @@ export const Registraion = () => {
           sx={{
             color: theme.palette.error.light,
             position: 'absolute',
-            borderRadius: '50%',
+            borderRadius: '40%',
             minWidth: 'auto',
             padding: '0.5rem',
             top: '1.7rem',

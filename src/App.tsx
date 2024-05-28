@@ -13,6 +13,8 @@ import { OrderStateContext } from './context/OrderContext';
 import { AuthPage } from './pages/AuthPage';
 import { CustomRouter } from './components/router/CustomRouter';
 import { AuthContext, AuthProvider } from './context/AuthContext';
+import { EditUserModal } from './components/user_page/modal/EditUserModal';
+import { ModalState } from './context/ModalContext';
 
 
 
@@ -21,11 +23,13 @@ function App() {
   return (
     <>
       <AuthProvider>
-        <ThemeProvider theme={ theme }>
-          <OrderStateContext>
-            <CustomRouter />
-          </OrderStateContext>
-        </ThemeProvider>
+        <ModalState>
+          <ThemeProvider theme={ theme }>
+            <OrderStateContext>
+              <CustomRouter />
+            </OrderStateContext>
+          </ThemeProvider>
+        </ModalState>
       </AuthProvider>
     </>
   )

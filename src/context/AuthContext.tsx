@@ -5,6 +5,7 @@ interface CurrentUserData {
   id: string
   name?: string
   email: string
+  isConfirmed: boolean
 }
 
 export interface IAuthContext {

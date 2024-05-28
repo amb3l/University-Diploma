@@ -82,7 +82,7 @@ export const LogIn = () => {
       <Button
         sx={{
           position: 'absolute',
-          borderRadius: '50%',
+          borderRadius: '40%',
           minWidth: 'auto',
           padding: '0.5rem',
           top: '1.7rem',
@@ -102,7 +102,7 @@ export const LogIn = () => {
           sx={{
             color: theme.palette.error.light,
             position: 'absolute',
-            borderRadius: '50%',
+            borderRadius: '40%',
             minWidth: 'auto',
             padding: '0.5rem',
             top: '1.7rem',
@@ -185,12 +185,15 @@ export const LogIn = () => {
           fullWidth
           variant='outlined'
           sx={[
-            { borderRadius: '1.5rem',
-            textTransform: 'none',
-            height: '60px',},
+            { 
+              borderRadius: '1.5rem',
+              textTransform: 'none',
+              height: '60px',
+              borderWidth: 2
+            },
             (theme) => ({
-              '&:hover': {
-                backgroundColor: '#efefee',
+              ':hover': {
+                borderWidth: 2,
               },
             }),
           ]}

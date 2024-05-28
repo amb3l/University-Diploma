@@ -5,14 +5,14 @@ export const theme = createTheme({
   palette: {
     mode: 'light',
     primary: {
-      main: '#1c1814',
+      main: '#292528',
     },
     secondary: {
-      main: '#dcbd00',
+      main: '#ffd300',
     },
-    info: {
-      main: '#02a2d1',
-    },
+    error: {
+      main: '#e7133f',
+    }
   },
   components: {
     MuiAppBar: {
