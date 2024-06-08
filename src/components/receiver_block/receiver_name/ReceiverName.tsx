@@ -3,7 +3,7 @@ import React, { ChangeEvent, useContext, useState } from 'react'
 import { OrderContext } from '../../../context/OrderContext'
 
 export const ReceiverName = () => {
-  const { setReceiverName } = useContext(OrderContext)
+  const { receiverName, setReceiverName } = useContext(OrderContext)
   const [name, setName] = useState('')
 
   const handleFirstNameChange = (e: ChangeEvent<HTMLInputElement>) => {

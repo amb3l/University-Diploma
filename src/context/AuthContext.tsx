@@ -9,24 +9,29 @@ interface CurrentUserData {
 }
 
 export interface IAuthContext {
+  isConfirmed: boolean
   currentUserData: CurrentUserData | null
   isLoading: boolean
   login: (email: string, password: string) => Promise<void>
   register: (name: string, email: string, password: string) => Promise<void>
   logout: () => void
+  confirm: () => void
 }
 
 export const AuthContext = createContext<IAuthContext>({
+  isConfirmed: false,
   currentUserData: null,
   isLoading: false,
   register: () => {return null},
   login: () => {return null},
-  logout: () => {}
+  logout: () => {},
+  confirm: () => {}
 })
 
 export function AuthProvider({children}: {children: ReactNode}): JSX.Element {
   const [currentUserData, setCurrentUserData] = useState<CurrentUserData | null>(null);
   const [isLoading, setIsLoading] = useState(true)
+  const [isConfirmed, setIsConfirmed] = useState(false)
 
   useEffect(() => {
     async function checkUserData() {
@@ -101,12 +106,18 @@ export function AuthProvider({children}: {children: ReactNode}): JSX.Element {
     }
   }
 
+  const confirm = () => {
+    setIsConfirmed(true)
+  }
+
   const value: IAuthContext = {
+    isConfirmed,
     currentUserData,
     isLoading,
     login,
     logout,
-    register
+    register,
+    confirm
   }
 
   const providerContent = isLoading ? null : children

@@ -24,11 +24,11 @@ export const ServicesPage = () => {
           </Typography>
         </Box>
 
-        <Grid container spacing={8}>
+        <Grid container spacing={8} alignItems={'center'} justifyContent={'center'}>
           <Grid item xs={12} sm={6} md={3}>
             <Card elevation={3}>
               <CardContent>
-                <img src={droneImage} alt="Доставка дронами" width="100%" />
+                <img src={droneImage} alt="Доставка дронами" className="h-48" />
                 <Typography variant="h5" gutterBottom>
                   Доставка дронами
                 </Typography>
@@ -42,21 +42,7 @@ export const ServicesPage = () => {
           <Grid item xs={12} sm={6} md={3}>
             <Card elevation={3}>
               <CardContent>
-                <img src={trackingImage} alt="Отслеживание доставки" width="100%" />
-                <Typography variant="h5" gutterBottom>
-                  Отслеживание доставки
-                </Typography>
-                <Typography variant="body1" gutterBottom>
-                  Вы можете отслеживать статус доставки в нашем приложении в режиме реального времени.
-                </Typography>
-              </CardContent>
-            </Card>
-          </Grid>
-
-          <Grid item xs={12} sm={6} md={3}>
-            <Card elevation={3}>
-              <CardContent>
-                <img src={supportImage} alt="Поддержка клиентов" width="100%" />
+                <img src={supportImage} alt="Поддержка клиентов" className="h-48" />
                 <Typography variant="h5" gutterBottom>
                   Поддержка клиентов
                 </Typography>
@@ -68,14 +54,15 @@ export const ServicesPage = () => {
           </Grid>
 
           <Grid item xs={12} sm={6} md={3}>
-            <Card elevation={3}>
+            <Card>
               <CardContent>
-                <img src={easyImage} alt="Простая работа" width="100%" />
+                <img src={easyImage} alt="Простая работа" className="h-48" />
                 <Typography variant="h5" gutterBottom>
                   Простая работа
                 </Typography>
                 <Typography variant="body1" gutterBottom>
-                  Для курьеров работа с нами максимально проста, даже если у них всего одна посылка.
+                  Для супервайзоров работа с нами максимально проста. 
+                  На работу можно устроиться за неделю.
                 </Typography>
               </CardContent>
             </Card>

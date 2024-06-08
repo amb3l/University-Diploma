@@ -11,7 +11,7 @@ interface Response {
   suggestions: DaDataSuggestion<DaDataAddress>[]
 }
 
-interface SuggestionItem {
+export interface SuggestionItem {
   id: any
   label: string
 }

@@ -8,6 +8,7 @@ export const ServicePanel = ({ onSubmit }: { onSubmit: () => string }) => {
   const elementRef = useRef(null)
 
   const submitHandler = (e: React.FormEvent) => {
+    e.preventDefault()
     onSubmit()
   }
   

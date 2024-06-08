@@ -158,11 +158,4 @@ export const MainMapContainer = () => {
     </>
   )
 }
-function useRef(arg0: null) {
-  throw new Error("Function not implemented.")
-}
-
-function MapboxGeocoding(arg0: { accessToken: any }) {
-  throw new Error("Function not implemented.")
-}
 

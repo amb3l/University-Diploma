@@ -9,7 +9,7 @@ import { useNavigate } from 'react-router'
 
 
 export const EditUserModal = ({handleClose}: {handleClose: () => void}) => {
-  const { currentUserData, logout } = useContext(AuthContext)
+  const { currentUserData, isConfirmed, logout, confirm } = useContext(AuthContext)
   const [isLoading, setIsLoading] = useState(false)
   const [file, setFile] = useState(null)
   const navigate = useNavigate()
@@ -20,9 +20,17 @@ export const EditUserModal = ({handleClose}: {handleClose: () => void}) => {
 
   const handleUpload = () => {
     // Отправить файл на сервер
-    // setIsLoading()
-    console.log('Загружаемый файл:', file);
+    setIsLoading(true)
+    const delayDebounceFn = setTimeout(() => {
+      confirm()
+      setIsLoading(false)
+    }, 700)
+
+    
+    // console.log('Загружаемый файл:', file);
   }
+
+  
 
 
   return (
@@ -71,14 +79,14 @@ export const EditUserModal = ({handleClose}: {handleClose: () => void}) => {
 
               <Box sx={{ display: 'flex', alignItems: 'center' }}>
 
-                {currentUserData.isConfirmed ? null : 
+                {isConfirmed ? null : 
                   <WarningAmberRoundedIcon fontSize='small' color='secondary' sx={{mr: 0.5}}/>
                 }
                 <Typography variant="h5" fontWeight={500}>
                   {currentUserData.name}
                 </Typography>
               </Box>
-              {currentUserData.isConfirmed ? null : 
+              {isConfirmed ? null :
                 <Typography 
                   variant='caption' 
                   color={theme.palette.text.secondary} 
