@@ -3,7 +3,7 @@ import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { ServiceList } from './ServiceList'
 import { theme } from '../themes/theme'
 
-export const ServicePanel = ({ onSubmit }: { onSubmit: () => string }) => {
+export const ServicePanel = ({ onSubmit }: { onSubmit: () => void }) => {
   const [isScrolledDown, setIsScrolledDown] = useState(false)
   const elementRef = useRef(null)
 
@@ -93,7 +93,7 @@ export const ServicePanel = ({ onSubmit }: { onSubmit: () => string }) => {
               </Typography>
               
               <Box>
-                <Typography  marginBottom={'-0.5rem'} fontWeight={'500'} color={theme.palette.text.disabled} >
+                <Typography  marginBottom={'-0.5rem'} fontWeight={'500'} >
                   Заказать
                 </Typography>
                 <Typography variant='caption' color={theme.palette.text.disabled}>

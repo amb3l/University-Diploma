@@ -6,6 +6,7 @@ import { ReceiverPlatform } from './receiver_platform/ReceiverPlatform';
 import { Box } from '@mui/material';
 import { ReceiverName } from './receiver_name/ReceiverName';
 import { theme } from '../../themes/theme';
+import { ReceiverEmail } from './receiver_email/ReceiverEmail';
 
 export const ReceiverBlock = () => {
   return (
@@ -17,10 +18,13 @@ export const ReceiverBlock = () => {
       firstContent={ <ReceiverCity /> }
       secondContent={ <ReceiverPlatform /> }
       thirdContent={ 
+        <ReceiverEmail />
+      }
+      fourthContent={ 
         <Box>
           <ReceiverPhone /> 
-          { <ReceiverName /> }
-        </Box>
+        { <ReceiverName /> }
+        </Box> 
       }
     />
   )

@@ -6,17 +6,15 @@ import { OrderContext } from '../../../context/OrderContext'
 
 export const SenderPhone = () => {
   const [value, setValue] = useState('')
-  const { setSenderPhone } = useContext(OrderContext)
 
   const handleOnChange = (s: string) => {
     setValue(s)
-    setSenderPhone(s)
   }
   
 
   return (
     <Box sx={{ display: 'flex', alignItems: 'center', mt: '0.5rem' }}>
-      <Typography paddingLeft={'40px'} fontWeight={'500'} >Отправитель</Typography>
+      <Typography paddingLeft={'40px'} fontWeight={'500'} >Телефон отправителя</Typography>
 
       <MuiPhoneNumber 
         id='sender-phone'

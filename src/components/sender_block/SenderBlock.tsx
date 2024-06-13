@@ -4,6 +4,7 @@ import { SenderPhone } from './sender_phone/SenderPhone';
 import { SenderCity } from './sender_city/SenderCity';
 import { SenderPlatform } from './sender_platform/SenderPlatform';
 import { theme } from '../../themes/theme';
+import { SenderEmail } from './sender_email/SenderEmail';
 
 export const SenderBlock = () => {
   return (
@@ -14,7 +15,8 @@ export const SenderBlock = () => {
       }
       firstContent={ <SenderCity /> }
       secondContent={ <SenderPlatform /> }
-      thirdContent={ <SenderPhone /> }
+      thirdContent={ <SenderEmail /> }
+      fourthContent={ <SenderPhone /> }
     />
   )
 }

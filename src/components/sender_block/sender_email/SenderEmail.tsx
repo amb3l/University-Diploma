@@ -1,28 +1,27 @@
-import { Box, Typography } from '@mui/material'
-import MuiPhoneNumber from 'mui-phone-number'
+import { Box, TextField, Typography } from '@mui/material'
 import React, { useContext, useState } from 'react'
 import { OrderContext } from '../../../context/OrderContext'
 
 
-export const ReceiverPhone = () => {
+export const SenderEmail = () => {
   const [value, setValue] = useState('')
+  const { setSenderEmail } = useContext(OrderContext)
 
-  const handleOnChange = (s: string) => {
-    setValue(s)
+  const handleOnChange = (e: any) => {
+    setValue(e.target.value)
   }
+  
 
   return (
     <Box sx={{ display: 'flex', alignItems: 'center', my: '0.5rem' }}>
-      <Typography paddingLeft={'40px'} fontWeight={'500'} >Телефон получателя</Typography>
+      <Typography paddingLeft={'40px'} fontWeight={'500'} >Email отправителя</Typography>
 
-      <MuiPhoneNumber 
-        id='receiver-phone'
-        defaultCountry={'ru'} 
-        onChange={(str) => handleOnChange(str as string) }
-        value={ value } 
-        disableDropdown
+      <TextField 
+        id='sender-email'
+        onChange={handleOnChange}
+        value={ value }
         variant='outlined'
-        placeholder="Телефон"
+        placeholder="Email"
         size='small'
         InputProps={{ 
           sx: { 

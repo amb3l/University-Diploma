@@ -35,3 +35,7 @@ export const queryReceiveOrder = async (id) => {
 export const queryCancelOrder = async (id) => {
   return await patchPrivateData(`/orders/${id}/cancel`)
 }
+
+export const queryMakeOrder = async (data) => {
+  return await postPrivateData('/orders/', data)
+}

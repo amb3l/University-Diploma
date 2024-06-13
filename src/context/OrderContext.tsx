@@ -3,20 +3,20 @@ import React, { createContext, useState, useContext } from 'react';
 interface OrderContext {
   senderCity: string;
   senderPlatform: string;
-  senderPhone: string;
+  senderEmail: string;
   senderName: string;
   setSenderCity: (value: string) => void;
   setSenderPlatform: (value: string) => void;
-  setSenderPhone: (value: string) => void;
+  setSenderEmail: (value: string) => void;
   setSenderName: (value: string) => void;
 
   receiverCity: string;
   receiverPlatform: string;
-  receiverPhone: string;
+  receiverEmail: string;
   receiverName: string;
   setReceiverCity: (value: string) => void;
   setReceiverPlatform: (value: string) => void;
-  setReceiverPhone: (value: string) => void;
+  setReceiverEmail: (value: string) => void;
   setReceiverName: (value: string) => void;
 
   detailsSize: string;
@@ -28,20 +28,20 @@ interface OrderContext {
 const initialContext: OrderContext = {
   senderCity: '',
   senderPlatform: '',
-  senderPhone: '',
+  senderEmail: '',
   senderName: '',
   setSenderCity: () => {},
   setSenderPlatform: () => {},
-  setSenderPhone: () => {},
+  setSenderEmail: () => {},
   setSenderName: () => {},
 
   receiverCity: '',
   receiverPlatform: '',
-  receiverPhone: '',
+  receiverEmail: '',
   receiverName: '',
   setReceiverCity: () => {},
   setReceiverPlatform: () => {},
-  setReceiverPhone: () => {},
+  setReceiverEmail: () => {},
   setReceiverName: () => {},
 
   detailsSize: '',
@@ -56,12 +56,12 @@ export const OrderStateContext = ({ children }: {children: React.ReactNode}) => 
   // Sender states
   const [senderCity, setSenderCity] = useState('')
   const [senderPlatform, setSenderPlatform] = useState('')
-  const [senderPhone, setSenderPhone] = useState('')
+  const [senderEmail, setSenderEmail] = useState('')
   const [senderName, setSenderName] = useState('')
   // Receiver states
   const [receiverCity, setReceiverCity] = useState('')
   const [receiverPlatform, setReceiverPlatform] = useState('')
-  const [receiverPhone, setReceiverPhone] = useState('')
+  const [receiverEmail, setReceiverEmail] = useState('')
   const [receiverName, setReceiverName] = useState('')
   // Details states
   const [detailsSize, setDetailsSize] = useState('')
@@ -71,12 +71,12 @@ export const OrderStateContext = ({ children }: {children: React.ReactNode}) => 
     <OrderContext.Provider value={{
       senderCity, setSenderCity,
       senderPlatform, setSenderPlatform,
-      senderPhone, setSenderPhone,
+      senderEmail, setSenderEmail,
       senderName, setSenderName,
 
       receiverCity, setReceiverCity,
       receiverPlatform, setReceiverPlatform,
-      receiverPhone, setReceiverPhone,
+      receiverEmail, setReceiverEmail,
       receiverName, setReceiverName,
 
       detailsSize, setDetailsSize,

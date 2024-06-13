@@ -6,13 +6,15 @@ export const ServiceItemWrapper = (
     secondContent, 
     title, 
     icon,
-    thirdContent
+    thirdContent,
+    fourthContent
   }: 
   { title: string, 
     icon: React.ReactNode, 
     firstContent?: React.ReactNode, 
     secondContent?: React.ReactNode,
-    thirdContent?: React.ReactNode 
+    thirdContent?: React.ReactNode,
+    fourthContent?: React.ReactNode
   }) => {
 
 
@@ -48,6 +50,11 @@ export const ServiceItemWrapper = (
         <Box sx={{
         }}>
           { thirdContent || null}
+        </Box>
+
+        <Box sx={{
+        }}>
+          { fourthContent || null}
         </Box>
 
       </Box>
