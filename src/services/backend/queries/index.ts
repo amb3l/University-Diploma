@@ -29,10 +29,18 @@ export const getPrivateData = async (resource) => {
   return await customFetch('GET', resource, undefined, true)
 }
 
+export const getPublicData = async (resource) => {
+  return await customFetch('GET', resource, undefined, false)
+}
+
 export const postPrivateData = async (resource, data) => {
   return await customFetch('POST', resource, data, true)
 }
 
 export const postPublicData = async (resource, data) => {
   return await customFetch('POST', resource, data, false)
+}
+
+export const patchPrivateData = async (resource) => {
+  return await customFetch('PATCH', resource, undefined, true)
 }

@@ -1,7 +1,7 @@
-import React, { useContext, useEffect, useMemo } from 'react';
+import React, { useContext, useEffect, useMemo, useState } from 'react';
 import { Container, Grid, Card, CardContent, Typography, Button, Box, Avatar, Tabs, Tab, Paper, IconButton, Divider } from '@mui/material';
 import { AuthContext } from '../context/AuthContext';
-import { Delete, TrackChanges, Repeat, ThumbUp } from '@mui/icons-material';
+import { Delete, TrackChanges, Repeat, ThumbUp, Check, Cancel } from '@mui/icons-material';
 import { MainHeader } from '../components/headers/MainHeader';
 //import LogoutIcon from '@mui/icons-material/Logout'
 //import { theme } from '../themes/theme';
@@ -10,13 +10,17 @@ import { EditUserModal } from '../components/user_page/modal/EditUserModal';
 import { ModalContext } from '../context/ModalContext';
 import { OrderItem, ORDER_STATUSES, IOrderItem } from '../components/order_item/OrderItem'
 import { OrderContext } from '../context/OrderContext';
+import { IOrder } from '../types/OrderType';
+import { queryCancelOrder, queryGetOrdersList, queryGetUserById, queryGetUsersList, queryReceiveOrder } from '../services/backend/queries/userData';
+import { AxiosError } from 'axios';
+import { theme } from '../themes/theme';
 
 
 const SOFT_BG = '#F0F1F5'
 
 interface IOrdersByTypesToDisplay {
   allOrders: Array<IOrderItem>;
-  activeOrders:Array <IOrderItem>;
+  activeOrders: Array <IOrderItem>;
   canceledOrders: Array<IOrderItem>;
   deliveredOrders: Array<IOrderItem>;
 }
@@ -32,82 +36,173 @@ export const UserPage = () => {
   const { currentUserData } = useContext(AuthContext)
   const [activeTab, setActiveTab] = React.useState(TAB_VALUES.ALL)
   const { modal, open, close } = useContext(ModalContext)
+  const [orders, setOrders] = useState<Array<IOrderItem>>([])
 
-  const { receiverName } = useContext(OrderContext);
+  const handleReceiveOrder = async (id: string) => {
+    await queryReceiveOrder(id)
+    window.location.reload()
+  }
 
-  const ORDER_ACTIONS_SET = useMemo<any>(() => {
-    return {
-      CANCELED: [<IconButton><Repeat /></IconButton>],
-      DELIVERED: [<IconButton><ThumbUp /></IconButton>, <IconButton><Repeat /></IconButton>],
-      ACTIVE: [<IconButton><TrackChanges /></IconButton>, <IconButton><Delete /></IconButton>],
+  const handleCancelOrder = async (id: string) => {
+    await queryCancelOrder(id)
+    window.location.reload()
+  }
+
+  function formatDateFromSQL(sqlDateTime: string): string {
+    const date = new Date(sqlDateTime);
+    const options: Intl.DateTimeFormatOptions = {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+      hour: 'numeric',
+      minute: 'numeric',
+      timeZone: 'UTC'
     };
+  
+    return new Intl.DateTimeFormat('ru-RU', options).format(date);
+  }
+
+  const mapOrderStatusToOrderStatus = (status: string): ORDER_STATUSES => {
+    switch (status) {
+      case 'Активный':
+        return ORDER_STATUSES.ACTIVE
+      case 'Отменён':
+        return ORDER_STATUSES.CANCELED
+      case 'Доставлен':
+        return ORDER_STATUSES.DELIVERED
+    }
+  }
+
+  const convertOrdersToOrderItems = async (orders: IOrder[]): Promise<IOrderItem[]> => {
+    const orderItems = await Promise.all(orders.map(async (order) => {
+      const _sender = await queryGetUserById(order.sender_id)
+      const _receiver = await queryGetUserById(order.receiver_id)
+      const sender = `${_sender.name}, ${_sender.email}`;
+      const receiver = `${_receiver.name}, ${_receiver.email}`;
+      const orderNumber = `#${order.id}`;
+      const status = mapOrderStatusToOrderStatus(order.status);
+      const dateCreated = formatDateFromSQL(order.date_created);
+
+      let dateReceived;
+      let dateCanceled;
+      if (order.date_received) {
+        dateReceived = formatDateFromSQL(order.date_received);
+      }
+      if (order.date_canceled) {
+        dateCanceled = formatDateFromSQL(order.date_canceled);
+      }
+      
+      let actions = []
+
+      if (status != ORDER_STATUSES.ACTIVE) {
+        actions = [
+          <IconButton><ThumbUp /></IconButton>,
+        ]
+      }
+      if (currentUserData.id === order.sender_id && status === ORDER_STATUSES.ACTIVE) {
+        actions = [
+          <IconButton><ThumbUp /></IconButton>,
+          <IconButton sx={{ color: theme.palette.error.main }} onClick={() => handleCancelOrder(order.id.toString())}><Cancel /></IconButton>
+        ]
+      }
+      if (currentUserData.id === order.receiver_id && status === ORDER_STATUSES.ACTIVE) {
+        actions = [
+          <IconButton><ThumbUp /></IconButton>, 
+          <Box>
+            <IconButton onClick={() => handleReceiveOrder(order.id.toString())}><Check /></IconButton>
+            <IconButton sx={{ color: theme.palette.error.main }} onClick={() => handleCancelOrder(order.id.toString())}><Cancel /></IconButton>
+          </Box>
+        ]
+      }
+  
+      return {
+        orderNumber,
+        status,
+        dateCreated,
+        dateReceived,
+        dateCanceled,
+        sender,
+        receiver,
+        actions,
+      };
+    }));
+  
+    return orderItems;
+  }
+
+
+  useEffect(() => {
+    const getOrderList = async() => {
+      try {
+        const l = await queryGetOrdersList()
+        console.log(l)
+        setOrders(await convertOrdersToOrderItems(l))
+        
+      } catch (e: unknown) {
+        const error = e as AxiosError
+        setError(error.message)
+        console.log(error)
+      }
+    }
+    
+    getOrderList()
   }, [])
 
-  const activeOrder = useMemo(() => {
-    return (receiverName.length > 0) ? {
-      orderNumber: "#9856",
-      status: ORDER_STATUSES.ACTIVE,
-      date: "31 мая 2024",
-      receiverName,
-      actions: ORDER_ACTIONS_SET.ACTIVE,
-    } : undefined;
-  }, [receiverName]);
+  // const orders: Array<IOrderItem> = useMemo(() => {
+  //   return [
+  //     {
+  //       orderNumber: "#7896",
+  //       status: ORDER_STATUSES.DELIVERED,
+  //       date: "5 мая 2023",
+  //       receiverName: "Максимов Максим",
+  //       actions: ORDER_ACTIONS_SET.DELIVERED,
+  //     }, {
+  //       orderNumber: "#9514",
+  //       status: ORDER_STATUSES.DELIVERED,
+  //       date: "27 июня 2023",
+  //       receiverName: "Станиславов Станислав",
+  //       actions: ORDER_ACTIONS_SET.DELIVERED,
+  //     }, {
+  //       orderNumber: "#9775",
+  //       status: ORDER_STATUSES.DELIVERED,
+  //       date: "7 сентября 2023",
+  //       receiverName: "Олегов Олег",
+  //       actions: ORDER_ACTIONS_SET.DELIVERED,
+  //     }, {
+  //       orderNumber: "#8544",
+  //       status: ORDER_STATUSES.DELIVERED,
+  //       date: "8 сентября 2023",
+  //       receiverName: "Сергеев Сергей",
+  //       actions: ORDER_ACTIONS_SET.DELIVERED,
+  //     },
 
-  const orders: Array<IOrderItem> = useMemo(() => {
-    return [
-      {
-        orderNumber: "#7896",
-        status: ORDER_STATUSES.DELIVERED,
-        date: "5 мая 2023",
-        receiverName: "Максимов Максим",
-        actions: ORDER_ACTIONS_SET.DELIVERED,
-      }, {
-        orderNumber: "#9514",
-        status: ORDER_STATUSES.DELIVERED,
-        date: "27 июня 2023",
-        receiverName: "Станиславов Станислав",
-        actions: ORDER_ACTIONS_SET.DELIVERED,
-      }, {
-        orderNumber: "#9775",
-        status: ORDER_STATUSES.DELIVERED,
-        date: "7 сентября 2023",
-        receiverName: "Олегов Олег",
-        actions: ORDER_ACTIONS_SET.DELIVERED,
-      }, {
-        orderNumber: "#8544",
-        status: ORDER_STATUSES.DELIVERED,
-        date: "8 сентября 2023",
-        receiverName: "Сергеев Сергей",
-        actions: ORDER_ACTIONS_SET.DELIVERED,
-      },
-
-      {
-        orderNumber: "#7364",
-        status: ORDER_STATUSES.CANCELED,
-        date: "21 марта 2023",
-        receiverName: "Даниилов Даниил",
-        actions: ORDER_ACTIONS_SET.CANCELED,
-      }, {
-        orderNumber: "#9784",
-        status: ORDER_STATUSES.CANCELED,
-        date: "16 декабря 2023",
-        receiverName: "Александров Александр",
-        actions: ORDER_ACTIONS_SET.CANCELED,
-      }, {
-        orderNumber: "#8465",
-        status: ORDER_STATUSES.CANCELED,
-        date: "5 мая 2024",
-        receiverName: "Васильев Василий",
-        actions: ORDER_ACTIONS_SET.CANCELED,
-      }, {
-        orderNumber: "#7646",
-        status: ORDER_STATUSES.CANCELED,
-        date: "17 апреля 2024",
-        receiverName: "Петров Пётр",
-        actions: ORDER_ACTIONS_SET.CANCELED,
-      },
-    ]
-  }, []);
+  //     {
+  //       orderNumber: "#7364",
+  //       status: ORDER_STATUSES.CANCELED,
+  //       date: "21 марта 2023",
+  //       receiverName: "Даниилов Даниил",
+  //       actions: ORDER_ACTIONS_SET.CANCELED,
+  //     }, {
+  //       orderNumber: "#9784",
+  //       status: ORDER_STATUSES.CANCELED,
+  //       date: "16 декабря 2023",
+  //       receiverName: "Александров Александр",
+  //       actions: ORDER_ACTIONS_SET.CANCELED,
+  //     }, {
+  //       orderNumber: "#8465",
+  //       status: ORDER_STATUSES.CANCELED,
+  //       date: "5 мая 2024",
+  //       receiverName: "Васильев Василий",
+  //       actions: ORDER_ACTIONS_SET.CANCELED,
+  //     }, {
+  //       orderNumber: "#7646",
+  //       status: ORDER_STATUSES.CANCELED,
+  //       date: "17 апреля 2024",
+  //       receiverName: "Петров Пётр",
+  //       actions: ORDER_ACTIONS_SET.CANCELED,
+  //     },
+  //   ]
+  // }, []);
 
   const {
     allOrders,
@@ -117,9 +212,6 @@ export const UserPage = () => {
   }: IOrdersByTypesToDisplay = useMemo(() => {
     const allOrders = orders;
     const activeOrders = allOrders.filter((order) => order.status === ORDER_STATUSES.ACTIVE);
-    if (activeOrder !== undefined) {
-      activeOrders.push(activeOrder);
-    }
     const canceledOrders = allOrders.filter((order) => order.status === ORDER_STATUSES.CANCELED);
     const deliveredOrders = allOrders.filter((order) => order.status === ORDER_STATUSES.DELIVERED);
 
@@ -129,7 +221,7 @@ export const UserPage = () => {
       canceledOrders,
       deliveredOrders,
     };
-  }, [orders, activeOrder])
+  }, [orders])
 
   const handleTabChange = (event: React.SyntheticEvent, newValue: number) => {
     setActiveTab(newValue);
@@ -259,8 +351,11 @@ export const UserPage = () => {
                          <OrderItem
                              orderNumber={order.orderNumber}
                               status={order.status}
-                              date={order.date}
-                              receiverName={order.receiverName}
+                              dateCreated={order.dateCreated}
+                              dateReceived={order.dateReceived}
+                              dateCanceled={order.dateCanceled}
+                              sender={order.sender}
+                              receiver={order.receiver}
                               actions={order.actions}
                               key={order.orderNumber}
                           />
@@ -272,8 +367,11 @@ export const UserPage = () => {
                            <OrderItem
                               orderNumber={order.orderNumber}
                                 status={order.status}
-                                date={order.date}
-                                receiverName={order.receiverName}
+                                dateCreated={order.dateCreated}
+                                dateReceived={order.dateReceived}
+                                dateCanceled={order.dateCanceled}
+                                sender={order.sender}
+                                receiver={order.receiver}
                                 actions={order.actions}
                                 key={order.orderNumber}
                             />
@@ -285,8 +383,11 @@ export const UserPage = () => {
                            <OrderItem
                               orderNumber={order.orderNumber}
                                 status={order.status}
-                                date={order.date}
-                                receiverName={order.receiverName}
+                                dateCreated={order.dateCreated}
+                                dateReceived={order.dateReceived}
+                                dateCanceled={order.dateCanceled}
+                                sender={order.sender}
+                                receiver={order.receiver}
                                 actions={order.actions}
                                 key={order.orderNumber}
                             />
@@ -298,8 +399,11 @@ export const UserPage = () => {
                            <OrderItem
                               orderNumber={order.orderNumber}
                                 status={order.status}
-                                date={order.date}
-                                receiverName={order.receiverName}
+                                dateCreated={order.dateCreated}
+                                dateReceived={order.dateReceived}
+                                dateCanceled={order.dateCanceled}
+                                sender={order.sender}
+                                receiver={order.receiver}
                                 actions={order.actions}
                                 key={order.orderNumber}
                             />
@@ -313,3 +417,7 @@ export const UserPage = () => {
     </>
   )
 }
+function setError(message: string) {
+  throw new Error('Function not implemented.');
+}
+

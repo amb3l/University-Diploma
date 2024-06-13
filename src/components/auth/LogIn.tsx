@@ -6,7 +6,6 @@ import {useNavigate} from 'react-router-dom'
 import axios, { AxiosError } from 'axios'
 import ErrorIcon from '@mui/icons-material/Error';
 import { theme } from '../../themes/theme'
-import { AuthResponse } from './Registration'
 import { AuthContext } from '../../context/AuthContext'
 
 

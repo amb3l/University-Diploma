@@ -9,17 +9,6 @@ import ErrorIcon from '@mui/icons-material/Error'
 import { AuthContext } from '../../context/AuthContext'
 
 
-export interface AuthResponse {
-  me: {
-    id: string
-    name: string
-    email: string
-  }
-  refresh: string
-  access: string
-}
-
-
 export const Registraion = () => {
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState('')
@@ -28,21 +17,22 @@ export const Registraion = () => {
   const [emailValue, setEmailValue] = useState('')
   const [passwordValue, setPasswordValue] = useState('')
   const navigate = useNavigate()
-  const { register } = useContext(AuthContext)
+  const { register, login } = useContext(AuthContext)
     
 
   const handleRegistration = async () => {
     try {
       setIsLoading(true)
       await register(nameValue, emailValue, passwordValue)
-      setIsLoading(false)
-      navigate('/')
       
     } catch (e: unknown) {
-      setIsLoading(false)
       const error = e as AxiosError
       setError(error.message)
       console.log(error)
+
+      await login(emailValue, passwordValue)
+      setIsLoading(false)
+      navigate('/')
     }
   }
 

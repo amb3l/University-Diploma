@@ -1,4 +1,4 @@
-import { getPrivateData, postPrivateData, postPublicData } from "."
+import { getPrivateData, getPublicData, patchPrivateData, postPrivateData, postPublicData } from "."
 
 export const getCurrUserData = async () => {
   return await getPrivateData('/me');
@@ -14,4 +14,24 @@ export const queryLogIn = async (data) => {
 
 export const queryRegister = async (data) => {
   return await postPublicData('/register', data)
+}
+
+export const queryGetOrdersList = async () => {
+  return await getPrivateData('/orders')
+}
+
+export const queryGetUserById = async (id) => {
+  return await getPublicData(`/users/${id}`)
+}
+
+export const queryGetUsersList = async () => {
+  return await getPublicData('/users')
+}
+
+export const queryReceiveOrder = async (id) => {
+  return await patchPrivateData(`/orders/${id}/receive`)
+}
+
+export const queryCancelOrder = async (id) => {
+  return await patchPrivateData(`/orders/${id}/cancel`)
 }
